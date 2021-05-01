@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS menu_items CASCADE;
+CREATE TABLE menu_items(
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL NOT NULL,
+  description TEXT NOT NULL,
+  display_image VARCHAR(255),
+  ingredients VARCHAR(255) NOT NULL,
+  popular BOOLEAN DEFAULT FALSE,
+  category VARCHAR(255) NOT NULL,
+  active BOOLEAN DEFAULT TRUE
+
+);
