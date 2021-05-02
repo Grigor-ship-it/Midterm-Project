@@ -7,32 +7,56 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/bottom-bar.css" type="text/css" />
 
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
+
   <body>
-    <h1>Hello World!</h1>
-    <button type="button" id="menuItemsButton" class="btn btn-primary">Menu</button>
-    <section class="menu">Menu Items</section>
-    <nav >
-      <div class="hidden">sandwich menu
-        <ul>
-          <li>user settings</li>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-        </ul>
+    <nav class="navbar">
+
+      <button type="button" id="user-info" class="btn btn-primary">
+        Slide down here
+      </button>
+
+      <span>APP name here</span>
+
+      <div class="login">
+        <button type="button" id="login" class="btn btn-primary">
+        Log-in</button>
+
+        <button type="button" id="register" class="btn btn-primary">
+        Register</button>
       </div>
-      <div>LOGIN</div>
+
     </nav>
-    <header>img</header>
-    <section class="menu">MENU</section>
-    <section class="time">time until pickup</section>
-    <section class="promotions">promotions</section>
-    <section class="info">INFO</section>
+    <header class="page-header">Big Picture Goes here!
+
+    </header>
+
+    <main class="main">
+      <section class="menu">MENU goes heree
+        <p>menu Items</p>
+        <button type="button" id="menuItemsButton" class="btn btn-primary">Menu</button>
+        <div class="menu-listed-items">
+
+        </div>
+        <!-- <section class="menu">Menu Items</section> -->
+      </section>
+
+      <div class="three-sections">
+        <section class="time">time until pickup</section>
+        <section class="promotions">promotions</section>
+        <section class="info">INFO</section>
+      </div>
+
+    </main>
+
   </body>
 </html>

@@ -13,7 +13,7 @@ $( document ).ready(function() {
       success: (data) => {
         let menuItems = data.menuItems
         menuItems.forEach(item => {
-          $(".menu").append(`<div>${item.name}</div>`)
+          $(".menu-listed-items").append(`<div class="menu-item">${item.name}</div>`)
         })
       }
     })
