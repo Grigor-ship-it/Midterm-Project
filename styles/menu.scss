@@ -1,0 +1,16 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-listed-items {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.menu-item {
+  padding: 0.5em;
+}
