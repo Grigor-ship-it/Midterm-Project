@@ -1,10 +1,23 @@
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });;
-});
+
+
+
+
+
+
+$( document ).ready(function() {
+
+   $("#menuItemsButton").click(function(event) {
+    $.ajax({
+      url: "/menu",
+      method: "GET",
+      success: (data) => {
+        let menuItems = data.menuItems
+        menuItems.forEach(item => {
+          $(".menu").append(`<div>${item.name}</div>`)
+        })
+      }
+    })
+   })
+
+})
+

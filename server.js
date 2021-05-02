@@ -1,4 +1,5 @@
 // load .env data into process.env
+
 require('dotenv').config();
 
 // Web server config
@@ -41,7 +42,7 @@ const menuRoutes = require("./routes/menu_items");
 // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRoutes(db));
 app.use("/widgets", widgetsRoutes(db));
-app.use("/", menuRoutes(db));
+app.use("/menu", menuRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
@@ -49,9 +50,16 @@ app.use("/", menuRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
+
   res.render("index");
 });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+
+
+
+
+
