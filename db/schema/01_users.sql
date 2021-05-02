@@ -14,7 +14,6 @@ CREATE TABLE users (
   country VARCHAR(35),
   post_code VARCHAR(35)
 
-
 );
 
 
