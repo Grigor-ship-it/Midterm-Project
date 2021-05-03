@@ -38,7 +38,11 @@ $( document ).ready(function() {
         <input type="text" id="username" placeholder="username" />
         <input type="password" id="password" placeholder="password" />
         <button id="login" type="button" onclick="login()">Login</button>`)
-        $('.loginFields').toggle('fast');
+        if ($('.loginFields:hidden').length) {
+          $('.loginFields').slideDown('fast');
+        } else {
+          $('.loginFields').slideUp('fast');
+        }
 
 
         const login = () => {

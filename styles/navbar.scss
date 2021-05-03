@@ -3,7 +3,50 @@
   justify-content: space-between;
   align-items: center;
   background-color: thistle;
-
   height: 4em;
   padding: 1em;
+}
+
+i.fas.fa-bars::before {
+  font-size: 30px;
+}
+
+div.userInfo {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 15px;
+  height: 150px;
+  background-color:skyblue;
+  box-shadow: 2px 2px 10px darkgrey;
+}
+
+.navRight {
+  display: flex;
+}
+
+.login, .register {
+  padding: 10px 15px;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin-left: 15px;
+}
+
+.login:hover, .register:hover {
+  background-color:sandybrown;
+}
+
+.loginFields, .registerFields {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+}
+
+.loginFields {
+  right: 160px;
+}
+
+.registerFields {
+  right: 15px;
 }
