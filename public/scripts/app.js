@@ -41,9 +41,9 @@ $( document ).ready(function() {
       success: (data) => {
         $('.loginFields').empty();
         $('.loginFields').append(`
-          <input type="text" id="username" placeholder="username" />
-          <input type="password" id="password" placeholder="password" />
-          <button id="login" type="button" onclick="login()">Login</button>
+            <input type="text" id="username" placeholder="username" />
+            <input type="password" id="password" placeholder="password" />
+            <button id="login" type="button" onclick="login()">Login</button>
         `)
         if ($('.loginFields:hidden').length) {
           $('.loginFields').slideDown();
