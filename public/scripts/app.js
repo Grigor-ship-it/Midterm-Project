@@ -28,16 +28,40 @@ $( document ).ready(function() {
             method: "GET",
             success: (data) => {
               if ($(".individualItem").children().length){
-                console.log("hello")
+
               $(".individualItem").empty()
               }
-              $(".individualItem").append(`<div id="${item.id}" class="menuItem"> ${item.name} Price: ${item.price} Description: ${item.description} Ingredients: ${item.ingredients}<img src=${item.display_image} style="width:100px;height:100px;"/></div>`)
+
+              $(".individualItem").append(`<div id="${item.id}" class="menuItem"> ${item.name}<img src=${item.display_image} style="width:100px;height:100px;"/> Price: ${item.price} <br>Description: ${item.description} <br>Ingredients: ${item.ingredients}<div class="btn-group" role="group">
+              <button type="button" class="btn btn-secondary1">-</button>
+              <input type="number" id="quantity" name="quantity" placeholder="0" min="1">
+              <button type="button" class="btn btn-secondary2">+</button>
+              </div>
+              <button type="button" class="btn btn-dark">Add to cart</button>
+              </div>`)
+
             }
+
           })
+
         })
       })
     }
  })
+
+ $(document).on("click", ".btn.btn-secondary1", function(){
+
+ });
+
+ $(document).on("click", ".btn.btn-secondary2", function(){
+   let orderValue = $("#quantity").val()
+
+  console.log(orderValue)
+ });
+
+ $(document).on("click", ".btn.btn-dark", function(){
+  console.log("test")
+ });
 
 
 
