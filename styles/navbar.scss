@@ -7,3 +7,48 @@
   height: 4em;
   padding: 1em;
 }
+
+i.fas.fa-bars::before {
+  font-size: 32px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  background-color: lightblue;
+}
+
+.navRight {
+  display: flex;
+}
+
+.login, .register {
+  padding: 10px 15px;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.login:hover, .register:hover {
+  background-color: lightgrey;
+}
+
+.userInfo, form>div.loginFields, form>div.registerFields {
+  display: none;
+}
+
+div.loginFields, div.registerFields {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 15px;
+  top: 60px;
+
+}
+div.loginFields{
+  right: 150px;
+}
+

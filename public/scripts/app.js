@@ -14,6 +14,7 @@ $( document ).ready(function() {
   })
 
   $(".fas").on('click',() => {
+    console.log('i clicked');
     $.ajax({
       url: "/users",
       method: "GET",
@@ -24,10 +25,15 @@ $( document ).ready(function() {
         $(".userInfo").append(`<div>${users.email}</div>`)
         $(".userInfo").append(`<div>${users.favourites}</div>`)
         $(".userInfo").append(`<div>${users.allergens}</div>`)
-        $('.userInfo').toggle('fast');
+        if ($('.userInfo:hidden').length) {
+          $('.userInfo').slideDown();
+      } else $('.userInfo').slideUp();
       }
     })
+
   })
+
+
   $('.login').on('click',() => {
     $.ajax({
       url: "/users",
@@ -35,10 +41,14 @@ $( document ).ready(function() {
       success: (data) => {
         $('.loginFields').empty();
         $('.loginFields').append(`
-        <input type="text" id="username" placeholder="username" />
-        <input type="password" id="password" placeholder="password" />
-        <button id="login" type="button" onclick="login()">Login</button>`)
-        $('.loginFields').toggle('fast');
+          <input type="text" id="username" placeholder="username" />
+          <input type="password" id="password" placeholder="password" />
+          <button id="login" type="button" onclick="login()">Login</button>
+        `)
+        if ($('.loginFields:hidden').length) {
+          $('.loginFields').slideDown();
+      } else $('.loginFields').slideUp();
+        // $('.loginFields').slideDown('fast');
 
 
         const login = () => {
@@ -54,15 +64,19 @@ $( document ).ready(function() {
 
   $('.register').on('click',() => {
     $('.registerFields').empty('');
-    $('.registerFields').append(`<input type="text" id="username" placeholder="username" />
-    <input type="password" id="password" placeholder="password" />
-    <button id="login" type="button" onclick="register()">Register</button>`)
-    $('.registerFields').toggle('fast');
-    $.ajax({
-      url: "/users",
-      method: 'GET',
-      success: (data) => {
-
+    $('.registerFields').append(`
+      <input type="text" id="username" placeholder="username" />
+      <input type="password" id="password" placeholder="password" />
+      <button id="login" type="button" onclick="register()">Register</button>
+      `)
+    if ($('.registerFields:hidden').length) {
+      $('.registerFields').slideDown();
+  } else $('.registerFields').slideUp();
+  $.ajax({
+    url: "/users",
+    method: 'GET',
+    success: (data) => {
+    // $('.registerFields').slideDown('fast');
       }
     })
   })
