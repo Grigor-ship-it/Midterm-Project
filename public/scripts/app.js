@@ -13,18 +13,17 @@ $( document ).ready(function() {
     })
   })
 
-  $("#userSettings").click(function(event) {
+  $(".fas").on('click', () => {
     $.ajax({
       url: "/users",
       method: "GET",
       success: (data) => {
-        let users = data.users
-        users.forEach(item => {
-          $(".userName").append(`<div>${item.name}</div><button id='editUserSettings'>edit</button>`)
-          $(".userEmail").append(`<div>${item.email}</div><button id='editUserSettings'>edit</button>`)
-          $(".userFavourites").append(`<div>${item.favourites}</div><button id='editUserSettings'>edit</button>`)
-          $(".userAllergens").append(`<div>${item.allergens}</div><button id='editUserSettings'>edit</button>`)
-        })
+        let users = data.users[1];
+
+          $(".userInfo").append(`<div>${users.name}</div><button id='editUserSettings'>edit</button>`)
+          $(".userInfo").append(`<div>${users.email}</div><button id='editUserSettings'>edit</button>`)
+          $(".userInfo").append(`<div>${users.favourites}</div><button id='editUserSettings'>edit</button>`)
+          $(".userInfo").append(`<div>${users.allergens}</div><button id='editUserSettings'>edit</button>`)
       }
     })
   })
@@ -33,7 +32,7 @@ $( document ).ready(function() {
 
   })
 
-   $.ajax({
+  $.ajax({
     url: "/menu",
     method: "GET",
     success: (data) => {
@@ -42,7 +41,7 @@ $( document ).ready(function() {
         $(".menu").append(`<div class=${item.id}> <img src=${item.display_image} style="width:100px;height:100px;">${item.name}</div>`)
       })
     }
- })
+})
 
   /* $(`.${item.id}`).click(function(event) {
     $.ajax({
@@ -55,7 +54,7 @@ $( document ).ready(function() {
         })
       }
     })
-   })*/
+  })*/
 
 
 
