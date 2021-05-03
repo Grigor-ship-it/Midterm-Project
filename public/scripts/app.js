@@ -13,26 +13,59 @@ $( document ).ready(function() {
     })
   })
 
-  $(".fas").on('click', () => {
+  $(".fas").on('click',() => {
     $.ajax({
       url: "/users",
       method: "GET",
       success: (data) => {
         let users = data.users[1];
+        $('.userInfo').empty();
+        $(".userInfo").append(`<div>${users.name}</div>`)
+        $(".userInfo").append(`<div>${users.email}</div>`)
+        $(".userInfo").append(`<div>${users.favourites}</div>`)
+        $(".userInfo").append(`<div>${users.allergens}</div>`)
+        $('.userInfo').toggle('fast');
+      }
+    })
+  })
+  $('.login').on('click',() => {
+    $.ajax({
+      url: "/users",
+      method: 'GET',
+      success: (data) => {
+        $('.loginFields').empty();
+        $('.loginFields').append(`
+        <input type="text" id="username" placeholder="username" />
+        <input type="password" id="password" placeholder="password" />
+        <button id="login" type="button" onclick="login()">Login</button>`)
+        $('.loginFields').toggle('fast');
 
-          $(".userInfo").append(`<div>${users.name}</div><button id='editUserSettings'>edit</button>`)
-          $(".userInfo").append(`<div>${users.email}</div><button id='editUserSettings'>edit</button>`)
-          $(".userInfo").append(`<div>${users.favourites}</div><button id='editUserSettings'>edit</button>`)
-          $(".userInfo").append(`<div>${users.allergens}</div><button id='editUserSettings'>edit</button>`)
+
+        const login = () => {
+          if ($("#username").val() == "admin" && $("#password").val() == "admin") {
+            alert("You are a valid user");
+          } else {
+            alert("You are not a valid user");
+          }
+        }
       }
     })
   })
 
-  $('#editUserSettings').click(function(event) {
+  $('.register').on('click',() => {
+    $('.registerFields').empty('');
+    $('.registerFields').append(`<input type="text" id="username" placeholder="username" />
+    <input type="password" id="password" placeholder="password" />
+    <button id="login" type="button" onclick="register()">Register</button>`)
+    $('.registerFields').toggle('fast');
+    $.ajax({
+      url: "/users",
+      method: 'GET',
+      success: (data) => {
 
+      }
+    })
   })
-
-
 
     $.ajax({
     url: "/menu",
