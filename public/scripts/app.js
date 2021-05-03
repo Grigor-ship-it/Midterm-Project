@@ -1,3 +1,5 @@
+
+
 $( document ).ready(function() {
 
   $("#menuItemsButton").click(function(event) {
@@ -67,7 +69,7 @@ $( document ).ready(function() {
     })
   })
 
-    $.ajax({
+  $.ajax({
     url: "/menu",
     method: "GET",
     success: (data) => {
@@ -99,21 +101,33 @@ $( document ).ready(function() {
         })
       })
     }
- })
+  })
 
- $(document).on("click", ".btn.btn-secondary1", function(){
+  $.ajax({
+    url: '/orders/timestamp',
+    method: 'GET',
+    success: (data) => {
+      let timeStamp = Object.values(data.orders[0]['?column?'])
+      console.log(Object.values(data.orders[0]['?column?']));
+        $('.time').append(`<div>
+        ${timeStamp} minutes</div>`)
 
- });
+    }
+  })
 
- $(document).on("click", ".btn.btn-secondary2", function(){
-   let orderValue = $("#quantity").val()
+$(document).on("click", ".btn.btn-secondary1", function(){
+
+});
+
+$(document).on("click", ".btn.btn-secondary2", function(){
+  let orderValue = $("#quantity").val()
 
   console.log(orderValue)
- });
+});
 
- $(document).on("click", ".btn.btn-dark", function(){
+$(document).on("click", ".btn.btn-dark", function(){
   console.log("test")
- });
+});
 
 })
 
