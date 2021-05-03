@@ -111,7 +111,6 @@ $( document ).ready(function() {
       console.log(Object.values(data.orders[0]['?column?']));
         $('.time').append(`<div>
         ${timeStamp} minutes</div>`)
-
     }
   })
 
