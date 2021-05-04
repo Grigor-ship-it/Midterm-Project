@@ -20,23 +20,31 @@
     <!-- Scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <script type="text/javascript" src="/scripts/cart.js"></script>
 
   </head>
 
 
   <body>
     <nav class="navbar">
-      <i class="fas fa-bars"></i>
-      <i class="fas fa-shopping-bag"></i>
-      <div class='userInfo'></div>
+
+      <div class="navLeft">
+
+        <i id="user-slide-down" class="fas fa-bars"></i>
+        <div class="shopping-cart">
+          <i id="shopping-cart" class="fas fa-shopping-bag"></i>
+          <div class="shopping-cart-view"></div>
+
+        </div>
+        <div class='userInfo'></div>
+
+      </div>
 
       <div class="navRight">
 
-
         <div class="loginFields"></div>
         <div class="registerFields"></div>
-        </div>
+
+      </div>
 
 
 
@@ -46,8 +54,7 @@
     </header>
 
     <main class="main">
-      <section class="menu">MENU
-        <button type="button" id="menuItemsButton" class="btn btn-primary">Menu</button>
+      <section class="menu">
         <div class="menu-listed-items">
 
         </div>
