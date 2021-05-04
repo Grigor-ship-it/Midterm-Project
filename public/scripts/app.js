@@ -191,18 +191,36 @@ $( document ).ready(function() {
     url: '/orders/timestamp',
     method: 'GET',
     success: (data) => {
-      let timeStamp = Object.values(data.orders[0]['?column?'])
-      // console.log(Object.values(data.orders[0]['?column?']));
-      let intervalID = setInterval(function() {
-        let now = new Date().getTime();
-        let countDown = timeStamp - now;
-        const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
-        $('.time').append(`<div>
-        ${minutes} minutes ${seconds}</div>`)
-        clearInterval(intervalID)
-      },1000);
+      const timer = function() {
+        let timeOrdered = Date.parse(data.orders[0].order_time);
+        let orderFinish = Date.parse(data.orders[0].finish_time);
+        let countDown = orderFinish - timeOrdered;
+        let minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((countDown % (1000 * 60)) / 1000);
+
+        // for (let i = 0; i < minutes; i--) {
+        console.log(minutes);
+        console.log(seconds);
+        const intervalID = setInterval(function() {
+        if (seconds <= 0) {
+          minutes --;
+          seconds = 60
+          console.log(minutes);
+          $('#minutes').html(`${minutes} minutes`)
+        }
+        seconds--;
+        $('#seconds').html(`${seconds} seconds`)
+        console.log(seconds);
+
+        },1000);
+
+      if (countDown <= 0) {
+        clearInterval(intervalID);
+        $('#time').html(`<div> TIME FOR PICKUP </div>`)
+      }
     }
+    timer();
+  }
   })
 
   $('#shopping-cart').on("click", function(){
