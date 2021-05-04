@@ -1,26 +1,28 @@
 .menu {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
 .menu-listed-items {
+
+
   cursor: pointer;
   display: flex;
   flex-direction: row;
   padding: 1em;
-  width: 500px;
-  height: 300px;
+  width: 800px;
+  height: 200px;
   overflow-y: auto;
   overflow-x: scroll;
-
-
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.menuItem {
+.menuItems {
 
-  margin-top: 34px;
+  margin-top: 24px;
   margin-bottom: 34px;
   align-items: center;
   flex-direction: column;
@@ -35,4 +37,25 @@ btn.btn-secondary{
   flex-direction: row;
 }
 
+.menuItem {
 
+  margin-top: 34px;
+  margin-bottom: 34px;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+.menuItems:hover {
+  box-shadow: 10px 10px 8px #888888;
+}
+
+.far.fa-arrow-alt-circle-left {
+  font-size: 24px;
+}
+
+.far.fa-arrow-alt-circle-right {
+  font-size: 24px;
+}

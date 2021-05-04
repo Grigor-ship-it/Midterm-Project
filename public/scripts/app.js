@@ -4,11 +4,12 @@ $( document ).ready(function() {
   $(".navRight").append(`<button type="button" class="login">LOGIN</button>`)
   $(".navRight").append(`<button type="button" class="register">REGISTER</button>`)
   $('.registerFields').append(`
-    <input type="text" id="usernameR" placeholder="name" />
-    <input type="password" id="passwordR" placeholder="password" />
-    <input type="text" id="email" placeholder="email" />
-    <input type="tel" id="telephone" placeholder="telephone" />
-    <input type="number" id="payment-info" placeholder="payment info" />
+    <input type="text" id="usernameR" placeholder="Name" />
+    <input type="password" id="passwordR" placeholder="Password" />
+    <input type="text" id="email" placeholder="Email" />
+    <input type="tel" id="telephone" placeholder="Telephone" />
+    <input type="number" id="payment-info" placeholder="Payment info" />
+    <input type="text" id="allergens" placeholder="Allergens" />
     <button id="register" type="submit">Register</button>`)
   $('.loginFields').append(`
     <input type="text" id="usernameL" placeholder="username" />
@@ -72,13 +73,14 @@ $( document ).ready(function() {
   $(document).on("click", "#register", function(){
    let email = $("#email").val()
    let name = $("#usernameR").val()
-  let password = $("#passwordR").val()
+   let password = $("#passwordR").val()
    let telephone = $("#telephone").val()
    let paymentInfo =  $("#payment-info").val()
+   let allergens = $("#allergens").val()
     $.ajax({
       url: "/register",
       method: "POST",
-      data : {email,name,password,telephone,paymentInfo},
+      data : {email,name,password,telephone,paymentInfo,allergens},
       success: function(res ) {
 
         $('.registerFields').hide();
@@ -88,6 +90,7 @@ $( document ).ready(function() {
         $("#passwordR").val("")
         $("#telephone").val("")
         $("#payment-info").val("")
+        $("#allergens").val("")
       }
 
 
@@ -131,7 +134,7 @@ $( document ).ready(function() {
       let menuItems = data.menuItems
       menuItems.forEach(item => {
         $(".menu-listed-items").append(`
-        <div id="${item.id}" class="menuItem"> <img src=${item.display_image} style="width:100px;height:100px;"/>${item.name}
+        <div id="${item.id}" class="menuItems"> <img src=${item.display_image} style="width:200px;height:200px;"/>${item.name}
         </div>
         `)
         $(`#${item.id}`).click(function(event) {
@@ -150,7 +153,7 @@ $( document ).ready(function() {
                 <br>Description: ${item.description} <br>Ingredients: ${item.ingredients}
                 <div class="btn-group" role="group">
                   <button type="button" class="btn btn-secondary1">-</button>
-                  <input type="number" id="quantity" name="quantity" placeholder="0" min="1">
+                  <input type="number" id="quantity" name="quantity" placeholder="0" value="1" min="1">
                   <button type="button" class="btn btn-secondary2">+</button>
                 </div>
                 <button type="button" id="add-to-cart" class="btn btn-dark">Add to cart</button>
@@ -231,5 +234,16 @@ $( document ).ready(function() {
   $(document).on("click", ".btn.btn-dark", function(){
     console.log("test")
   });
+
+  //scroll left
+  $(document).on("click", ".far.fa-arrow-alt-circle-left", function(){
+    $(".menu-listed-items").animate( { scrollLeft: '-=460' }, 1000);
+  });
+
+  //scroll right
+  $(document).on("click", ".far.fa-arrow-alt-circle-right", function(){
+    $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
+  })
+
 
 })
