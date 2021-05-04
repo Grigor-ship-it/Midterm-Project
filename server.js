@@ -39,6 +39,7 @@ const widgetsRoutes = require("./routes/widgets");
 const menuRoutes = require("./routes/menu_items");
 const individualItems = require("./routes/individual_items")
 const orderRoutes = require("./routes/orders");
+const registerRoutes = require("./routes/register")
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -47,6 +48,7 @@ app.use("/widgets", widgetsRoutes(db));
 app.use("/menu", menuRoutes(db));
 app.use("/menuItem", individualItems(db))
 app.use("/orders", orderRoutes(db));
+app.use("/register", registerRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 

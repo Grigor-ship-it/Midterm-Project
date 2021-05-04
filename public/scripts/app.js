@@ -4,9 +4,12 @@ $( document ).ready(function() {
 
   $(".navRight").append(`<button type="button" class="login">LOGIN</button>`)
   $(".navRight").append(`<button type="button" class="register">REGISTER</button>`)
-  $('.registerFields').append(`<input type="text" id="usernameR" placeholder="username" />
+  $('.registerFields').append(`<input type="text" id="usernameR" placeholder="name" />
     <input type="password" id="passwordR" placeholder="password" />
-    <button id="register" type="button">Register</button>`)
+    <input type="text" id="email" placeholder="email" />
+    <input type="tel" id="telephone" placeholder="telephone" />
+    <input type="number" id="payment-info" placeholder="payment info" />
+    <button id="register" type="submit">Register</button>`)
     $('.loginFields').append(`
     <input type="text" id="usernameL" placeholder="username" />
     <input type="password" id="passwordL" placeholder="password" />
@@ -63,6 +66,32 @@ $( document ).ready(function() {
       }
     })
   });
+
+  $(document).on("click", "#register", function(){
+   let email = $("#email").val()
+   let name = $("#usernameR").val()
+  let password = $("#passwordR").val()
+   let telephone = $("#telephone").val()
+   let paymentInfo =  $("#payment-info").val()
+    $.ajax({
+      url: "/register",
+      method: "POST",
+      data : {email,name,password,telephone,paymentInfo},
+      success: function(res ) {
+
+        $('.registerFields').hide();
+
+        $("#email").val("")
+        $("#usernameR").val("")
+        $("#passwordR").val("")
+        $("#telephone").val("")
+        $("#payment-info").val("")
+      }
+
+
+    })
+  })
+
 
   $(document).on("click", ".logout", function(){
 
@@ -139,21 +168,21 @@ $( document ).ready(function() {
   })
 
 
-$(document).on("click", ".btn.btn-secondary1", function(){
+  $(document).on("click", ".btn.btn-secondary1", function(){
   let orderValue = Number($("#quantity").val()) - 1
 
   $("#quantity").val(orderValue)
-});
+  });
 
-$(document).on("click", ".btn.btn-secondary2", function(){
+  $(document).on("click", ".btn.btn-secondary2", function(){
   let orderValue = Number($("#quantity").val()) + 1
 
   $("#quantity").val(orderValue)
-});
+  });
 
-$(document).on("click", ".btn.btn-dark", function(){
+  $(document).on("click", ".btn.btn-dark", function(){
   console.log("test")
-});
+  });
 
 
 
