@@ -34,9 +34,11 @@ div.userInfo {
 
 .login:hover, .register:hover {
   background-color:sandybrown;
+  cursor: pointer;
 }
 
 .loginFields, .registerFields {
+
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -50,3 +52,4 @@ div.userInfo {
 .registerFields {
   right: 15px;
 }
+
