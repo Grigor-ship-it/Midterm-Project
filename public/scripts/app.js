@@ -6,11 +6,12 @@ $( document ).ready(function() {
   $('.registerFields').append(`
   <form>
     <fieldset>
-      <input type="text" id="usernameR" placeholder="name" />
-      <input type="password" id="passwordR" placeholder="password" />
-      <input type="text" id="email" placeholder="email" />
-      <input type="tel" id="telephone" placeholder="telephone" />
-      <input type="number" id="payment-info" placeholder="payment info" />
+      <input type="text" id="usernameR" placeholder="Name" />
+      <input type="password" id="passwordR" placeholder="Password" />
+      <input type="text" id="email" placeholder="Email" />
+      <input type="tel" id="telephone" placeholder="Telephone" />
+      <input type="text" id="allergens" placeholder="Allergens" />
+      <input type="number" id="payment-info" placeholder="Payment info" />
       <button id="register" type="submit">Register</button>
     </fieldset>
   </form>
@@ -88,6 +89,7 @@ $( document ).ready(function() {
   let password = $("#passwordR").val()
   let telephone = $("#telephone").val()
   let paymentInfo =  $("#payment-info").val()
+  let allergens = $("#allergens").val()
     $.ajax({
       url: "/register",
       method: "POST",
@@ -146,7 +148,7 @@ $( document ).ready(function() {
       let menuItems = data.menuItems
       menuItems.forEach(item => {
         $(".menu-listed-items").append(`
-        <div id="${item.id}" class="menuItems"> <img src=${item.display_image} style="width:200px;height:200px;"/>${item.name}
+        <div id="${item.id}" class="menuItems"> <img src=${item.display_image} style="width:200px;height:160px;"/>${item.name}
         </div>
         `)
         $(`#${item.id}`).click(function(event) {
@@ -160,9 +162,13 @@ $( document ).ready(function() {
               }
 
               $(".individualItem").append(`
-              <div id="${item.id}-expanded" class="menuItem">${item.name}
-              <img src=${item.display_image} style="width:100px;height:100px;"/> Price: ${item.price}
-                <br>Description: ${item.description} <br>Ingredients: ${item.ingredients}
+              <div id="${item.id}-expanded" class="menuItem"><b>${item.name}</b>
+              <img src=${item.display_image} style="width:300px;height:300px;" class="image">
+              <div class="menu-text"
+                <br>${item.price}$
+                <br>${item.description}
+                <br>${item.ingredients}
+              </div>
                 <div class="btn-group" role="group">
                   <button type="button" class="btn btn-secondary1">-</button>
                   <input type="number" id="quantity" name="quantity" placeholder="0" value="1" min="1">
