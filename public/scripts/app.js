@@ -10,19 +10,25 @@ $( document ).ready(function() {
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
 
   $('.registerFields').append(`
-  <ul class='drop'>
-    <input type="text" id="usernameR" placeholder="name" />
-    <input type="password" id="passwordR" placeholder="password" />
-    <input type="text" id="email" placeholder="email" />
-    <input type="tel" id="telephone" placeholder="telephone" />
-    <input type="number" id="payment-info" placeholder="payment info" />
-    <button id="register" type="submit">Register</button>
-  </ul>`)
-
+  <form>
+    <fieldset>
+      <input type="text" id="usernameR" placeholder="name" />
+      <input type="password" id="passwordR" placeholder="password" />
+      <input type="text" id="email" placeholder="email" />
+      <input type="tel" id="telephone" placeholder="telephone" />
+      <input type="number" id="payment-info" placeholder="payment info" />
+      <button id="register" type="submit">Register</button>
+    </fieldset>
+  </form>
+  `)
   $('.loginFields').append(`
-    <input type="text" id="usernameL" placeholder="username" />
-    <input type="password" id="passwordL" placeholder="password" />
-    <button id="login" type="button">Login</button>
+  <form>
+    <fieldset>
+      <input type="text" id="usernameL" placeholder="username" />
+      <input type="password" id="passwordL" placeholder="password" />
+      <button id="login" type="button">Login</button>
+    </fieldset>
+  </form>
   `)
 
 
@@ -62,9 +68,13 @@ $( document ).ready(function() {
       success: (data) => {
         if ($('#usernameL').val() === data.users[0].email && $('#passwordL').val() === data.users[0].password)
         {
-        $(".login").hide();
-        $(".register").hide();
+
+        console.log("its working")
+        $("#register").hide();
+        $("#login").hide();
         $('.loginFields').hide();
+        $(".links").hide();
+
         $('.registerFields').hide();
         $(".navRight").append(`<div class="greeting">Hello ${data.users[0].name}</div>`)
         $(".navRight").append(`<button type="button" class="logout">Logout</button>`)
@@ -82,8 +92,8 @@ $( document ).ready(function() {
     $.ajax({
       url: "/register",
       method: "POST",
-      data : {email, name, password, telephone, paymentInfo},
-      success: function(res) {
+      data : {email,name,password,telephone,paymentInfo,allergens},
+      success: function(res ) {
 
         $('.registerFields').hide();
         $("#email").val("")
@@ -91,6 +101,7 @@ $( document ).ready(function() {
         $("#passwordR").val("")
         $("#telephone").val("")
         $("#payment-info").val("")
+        $("#allergens").val("")
       }
     })
   })
@@ -99,8 +110,9 @@ $( document ).ready(function() {
 
     $(".greeting").hide()
     $(".logout").hide()
-    $(".login").show();
-    $(".register").show();
+    $("#login").show();
+    $("#register").show();
+    $(".links").show();
 
   });
 
@@ -130,7 +142,7 @@ $( document ).ready(function() {
       let menuItems = data.menuItems
       menuItems.forEach(item => {
         $(".menu-listed-items").append(`
-        <div id="${item.id}" class="menuItem"> <img src=${item.display_image} style="width:100px;height:100px;"/>${item.name}
+        <div id="${item.id}" class="menuItems"> <img src=${item.display_image} style="width:200px;height:200px;"/>${item.name}
         </div>
         `)
         $(`#${item.id}`).click(function(event) {
@@ -149,7 +161,7 @@ $( document ).ready(function() {
                 <br>Description: ${item.description} <br>Ingredients: ${item.ingredients}
                 <div class="btn-group" role="group">
                   <button type="button" class="btn btn-secondary1">-</button>
-                  <input type="number" id="quantity" name="quantity" placeholder="0" min="1">
+                  <input type="number" id="quantity" name="quantity" placeholder="0" value="1" min="1">
                   <button type="button" class="btn btn-secondary2">+</button>
                 </div>
                 <button type="button" id="add-to-cart" class="btn btn-dark">Add to cart</button>
@@ -273,4 +285,13 @@ $( document ).ready(function() {
   //   console.log("test")
   // });
 
+  //scroll left
+  $(document).on("click", ".far.fa-arrow-alt-circle-left", function(){
+    $(".menu-listed-items").animate( { scrollLeft: '-=460' }, 1000);
+  });
+
+  //scroll right
+  $(document).on("click", ".far.fa-arrow-alt-circle-right", function(){
+    $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
+  })
 })

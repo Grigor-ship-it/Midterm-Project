@@ -5,7 +5,7 @@ const router  = express.Router();
 module.exports = (db) => {
   router.post("/", (req, res) => {
 
-    db.query(`INSERT INTO users (name, email, password, telephone, payment_info) VALUES ('${req.body.name}', '${req.body.email}', '${req.body.password}', '${req.body.telephone}', '${req.body.paymentInfo}');`)
+    db.query(`INSERT INTO users (name, email, password, telephone, payment_info, allergens) VALUES ('${req.body.name}', '${req.body.email}', '${req.body.password}', '${req.body.telephone}', '${req.body.paymentInfo}','${req.body.allergens}');`)
     .then(data => {
 
 
