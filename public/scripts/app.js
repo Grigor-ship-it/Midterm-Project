@@ -67,9 +67,13 @@ $( document ).ready(function() {
       success: (data) => {
         if ($('#usernameL').val() === data.users[0].email && $('#passwordL').val() === data.users[0].password)
         {
-        $(".login").hide();
-        $(".register").hide();
+
+        console.log("its working")
+        $("#register").hide();
+        $("#login").hide();
         $('.loginFields').hide();
+        $(".links").hide();
+
         $('.registerFields').hide();
         $(".navRight").append(`<div class="greeting">Hello ${data.users[0].name}</div>`)
         $(".navRight").append(`<button type="button" class="logout">Logout</button>`)
@@ -109,8 +113,9 @@ $( document ).ready(function() {
 
     $(".greeting").hide()
     $(".logout").hide()
-    $(".login").show();
-    $(".register").show();
+    $("#login").show();
+    $("#register").show();
+    $(".links").show();
 
   });
 
