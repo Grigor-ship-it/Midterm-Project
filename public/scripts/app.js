@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+  const shoppingCart =[];
   $("#menuItemsButton").click(function(event) {
     $.ajax({
       url: "/menu",
@@ -75,9 +76,6 @@ $( document ).ready(function() {
         $(".menu-listed-items").append(`
         <div id="${item.id}" class="menuItem"> <img src=${item.display_image} style="width:100px;height:100px;"/>${item.name}
         </div>
-        <button type="button" id="${item.id}-btn"class="btn btn-primary">
-          Add to Cart
-        </button>
         `)
         $(`#${item.id}`).click(function(event) {
           $.ajax({
@@ -89,40 +87,48 @@ $( document ).ready(function() {
               $(".individualItem").empty()
               }
 
-              $(".individualItem").append(`<div id="${item.id}" class="menuItem"> ${item.name}<img src=${item.display_image} style="width:100px;height:100px;"/> Price: ${item.price} <br>Description: ${item.description} <br>Ingredients: ${item.ingredients}<div class="btn-group" role="group">
-              <button type="button" class="btn btn-secondary1">-</button>
-              <input type="number" id="quantity" name="quantity" placeholder="0" min="1">
-              <button type="button" class="btn btn-secondary2">+</button>
+              $(".individualItem").append(`
+              <div id="${item.id}-expanded" class="menuItem">${item.name}
+              <img src=${item.display_image} style="width:100px;height:100px;"/> Price: ${item.price}
+                <br>Description: ${item.description} <br>Ingredients: ${item.ingredients}
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-secondary1">-</button>
+                  <input type="number" id="quantity" name="quantity" placeholder="0" min="1">
+                  <button type="button" class="btn btn-secondary2">+</button>
+                </div>
+                <button type="button" id="add-to-cart" class="btn btn-dark">Add to cart</button>
               </div>
-              <button type="button" class="btn btn-dark">Add to cart</button>
-              </div>`)
+              `)
+              $('#add-to-cart').on("click", function(){
+                let quantity = $('#quantity').val();
 
+                // // orders function
+                // $(`#${item.id}-btn`).click(function(event) {
+                //   console.log('button clicked');
+                //  $.ajax({
+                //    url: "/orders",
+                //    method: "GET",
+                //    success: (data) => {
+                //      console.log(data);
+                //     $(".page-header").append(`<div class="menu-item">${data}</div>`)
+                //      let orders = data.orders
+                //      console.log(orders);
+                //     //  orders.forEach(order => {
+                //     //    $(".cart").append(`<div class="menu-item">hello</div>`)
+                //     //  })
+                //    }
+                //   })
+                // })
+              });
             }
-
-          })
-
-        })
-        // orders function
-        $(`#${item.id}-btn`).click(function(event) {
-          console.log('button clicked');
-         $.ajax({
-           url: "/orders",
-           method: "GET",
-           success: (data) => {
-             console.log(data);
-            $(".page-header").append(`<div class="menu-item">${data}</div>`)
-             let orders = data.orders
-             console.log(orders);
-            //  orders.forEach(order => {
-            //    $(".cart").append(`<div class="menu-item">hello</div>`)
-            //  })
-           }
           })
         })
       })
+      //  add to cart functionality
+
     }
  })
-
+ console.log(item.id);
  $(document).on("click", ".btn.btn-secondary1", function(){
 
  });
@@ -133,9 +139,8 @@ $( document ).ready(function() {
   console.log(orderValue)
  });
 
- $(document).on("click", ".btn.btn-dark", function(){
-  console.log("test")
- });
+
+
 
 })
 
