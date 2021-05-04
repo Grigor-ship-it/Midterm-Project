@@ -15,7 +15,7 @@ $( document ).ready(function() {
     })
   })
 
-  $(".fas").on('click',() => {
+  $(".fa-bars").on('click',() => {
     $.ajax({
       url: "/users",
       method: "GET",
@@ -108,9 +108,16 @@ $( document ).ready(function() {
     method: 'GET',
     success: (data) => {
       let timeStamp = Object.values(data.orders[0]['?column?'])
-      console.log(Object.values(data.orders[0]['?column?']));
+      // console.log(Object.values(data.orders[0]['?column?']));
+      let intervalID = setInterval(function() {
+        let now = new Date().getTime();
+        let countDown = timeStamp - now;
+        const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
         $('.time').append(`<div>
-        ${timeStamp} minutes</div>`)
+        ${minutes} minutes ${seconds}</div>`)
+        clearInterval(intervalID)
+      },1000);
     }
   })
 
