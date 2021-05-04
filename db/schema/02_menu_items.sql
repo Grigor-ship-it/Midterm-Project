@@ -8,7 +8,7 @@ CREATE TABLE menu_items(
   ingredients VARCHAR(255) NOT NULL,
   popular BOOLEAN DEFAULT FALSE,
   category VARCHAR(255) NOT NULL,
-  quantity INTEGER DEFAULT 0;
+  quantity INTEGER DEFAULT 0,
   active BOOLEAN DEFAULT FALSE
 
 );
