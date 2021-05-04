@@ -1,15 +1,17 @@
 $( document ).ready(function() {
   const shoppingCart =[];
 
-  $(".navRight").append(`<button type="button" class="login">LOGIN</button>`)
-  $(".navRight").append(`<button type="button" class="register">REGISTER</button>`)
+  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
+  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
   $('.registerFields').append(`
+  <ul class='drop'>
     <input type="text" id="usernameR" placeholder="name" />
     <input type="password" id="passwordR" placeholder="password" />
     <input type="text" id="email" placeholder="email" />
     <input type="tel" id="telephone" placeholder="telephone" />
     <input type="number" id="payment-info" placeholder="payment info" />
-    <button id="register" type="submit">Register</button>`)
+    <button id="register" type="submit">Register</button>
+  </ul>`)
   $('.loginFields').append(`
     <input type="text" id="usernameL" placeholder="username" />
     <input type="password" id="passwordL" placeholder="password" />
@@ -42,10 +44,10 @@ $( document ).ready(function() {
       success: (data) => {
         let users = data.users[1];
         $('.userInfo').empty();
-        $(".userInfo").append(`<div>${users.name}</div>`)
-        $(".userInfo").append(`<div>${users.email}</div>`)
-        $(".userInfo").append(`<div>${users.favourites}</div>`)
-        $(".userInfo").append(`<div>${users.allergens}</div>`)
+        $(".userInfo").append(`<li><a href='#'>${users.name}</a></li>`)
+        $(".userInfo").append(`<li><a href='#'>${users.email}</a></li>`)
+        $(".userInfo").append(`<li><a href='#'>${users.favourites}</a></li>`)
+        $(".userInfo").append(`<li><a href='#'>${users.allergens}</a></li>`)
         $('.userInfo').toggle('fast');
       }
     })
@@ -64,17 +66,17 @@ $( document ).ready(function() {
         $('.registerFields').hide();
         $(".navRight").append(`<div class="greeting">Hello ${data.users[0].name}</div>`)
         $(".navRight").append(`<button type="button" class="logout">Logout</button>`)
-       }
+      }
       }
     })
   });
 
   $(document).on("click", "#register", function(){
-   let email = $("#email").val()
-   let name = $("#usernameR").val()
+  let email = $("#email").val()
+  let name = $("#usernameR").val()
   let password = $("#passwordR").val()
-   let telephone = $("#telephone").val()
-   let paymentInfo =  $("#payment-info").val()
+  let telephone = $("#telephone").val()
+  let paymentInfo =  $("#payment-info").val()
     $.ajax({
       url: "/register",
       method: "POST",
@@ -110,7 +112,7 @@ $( document ).ready(function() {
     } else {
         $(".loginFields").show()
         $('.registerFields').hide();
-        $(".loginFields").hide().slideDown();
+        $(".loginFields").hide().slideDown('fast');
     }
   })
 
@@ -120,7 +122,7 @@ $( document ).ready(function() {
     $(".registerFields").hide()
     } else {
     $('.loginFields').hide();
-    $('.registerFields').hide().slideDown();
+    $('.registerFields').hide().slideDown('fast');
     }
   })
 
@@ -196,10 +198,10 @@ $( document ).ready(function() {
       shoppingCart.forEach(element => {
 
         $('.shopping-cart-view').append(`
-          <div class="${element.item_id}-cart-item">
+          <li class="${element.item_id}-cart-item">
             ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
             <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
-          </div>
+          </li>
         `)
           // Remove item from shopping cart functionality to come next push
       });
