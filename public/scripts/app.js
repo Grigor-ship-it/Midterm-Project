@@ -1,5 +1,23 @@
+
+
 $( document ).ready(function() {
   const shoppingCart =[];
+
+  $(".navRight").append(`<button type="button" class="login">LOGIN</button>`)
+  $(".navRight").append(`<button type="button" class="register">REGISTER</button>`)
+  $('.registerFields').append(`<input type="text" id="usernameR" placeholder="username" />
+    <input type="password" id="passwordR" placeholder="password" />
+    <button id="register" type="button">Register</button>`)
+    $('.loginFields').append(`
+    <input type="text" id="usernameL" placeholder="username" />
+    <input type="password" id="passwordL" placeholder="password" />
+    <button id="login" type="button">Login</button>`)
+    $(".registerFields").hide()
+    $(".loginFields").hide()
+
+
+
+
   $("#menuItemsButton").click(function(event) {
     $.ajax({
       url: "/menu",
@@ -28,46 +46,55 @@ $( document ).ready(function() {
       }
     })
   })
-  $('.login').on('click',() => {
+
+  $(document).on("click", "#login", function(){
     $.ajax({
-      url: "/users",
+      url: '/users',
       method: 'GET',
       success: (data) => {
-        $('.loginFields').empty();
-        $('.loginFields').append(`
-        <input type="text" id="username" placeholder="username" />
-        <input type="password" id="password" placeholder="password" />
-        <button id="login" type="button" onclick="login()">Login</button>`)
-        $('.loginFields').toggle('fast');
-
-
-        const login = () => {
-          if ($("#username").val() == "admin" && $("#password").val() == "admin") {
-            alert("You are a valid user");
-          } else {
-            alert("You are not a valid user");
-          }
-        }
+        if ($('#usernameL').val() === data.users[0].email && $('#passwordL').val() === data.users[0].password)
+        {
+        $(".login").hide();
+        $(".register").hide();
+        $('.loginFields').hide();
+        $('.registerFields').hide();
+        $(".navRight").append(`<div class="greeting">Hello ${data.users[0].name}</div>`)
+        $(".navRight").append(`<button type="button" class="logout">Logout</button>`)
+       }
       }
     })
+  });
+
+  $(document).on("click", ".logout", function(){
+
+    $(".greeting").hide()
+    $(".logout").hide()
+    $(".login").show();
+    $(".register").show();
+
+  });
+
+  $('.login').on('click',() => {
+    if ($('.loginFields').is(':visible')) {
+      $(".loginFields").hide()
+    } else {
+        $(".loginFields").show()
+        $('.registerFields').hide();
+        $(".loginFields").hide().slideDown();
+    }
   })
+
 
   $('.register').on('click',() => {
-    $('.registerFields').empty('');
-    $('.registerFields').append(`<input type="text" id="username" placeholder="username" />
-    <input type="password" id="password" placeholder="password" />
-    <button id="login" type="button" onclick="register()">Register</button>`)
-    $('.registerFields').toggle('fast');
-    $.ajax({
-      url: "/users",
-      method: 'GET',
-      success: (data) => {
-
-      }
-    })
+    if ($('.registerFields').is(':visible')) {
+    $(".registerFields").hide()
+    } else {
+    $('.loginFields').hide();
+    $('.registerFields').hide().slideDown();
+    }
   })
 
-    $.ajax({
+  $.ajax({
     url: "/menu",
     method: "GET",
     success: (data) => {
@@ -127,17 +154,37 @@ $( document ).ready(function() {
       //  add to cart functionality
 
     }
- })
- console.log(item.id);
- $(document).on("click", ".btn.btn-secondary1", function(){
+  })
 
- });
+  $.ajax({
+    url: '/orders/timestamp',
+    method: 'GET',
+    success: (data) => {
+      let timeStamp = Object.values(data.orders[0]['?column?'])
+      console.log(Object.values(data.orders[0]['?column?']));
+        $('.time').append(`<div>
+        ${timeStamp} minutes</div>`)
+    }
+  })
 
- $(document).on("click", ".btn.btn-secondary2", function(){
-   let orderValue = $("#quantity").val()
 
-  console.log(orderValue)
- });
+$(document).on("click", ".btn.btn-secondary1", function(){
+  let orderValue = Number($("#quantity").val()) - 1
+
+  $("#quantity").val(orderValue)
+});
+
+$(document).on("click", ".btn.btn-secondary2", function(){
+  let orderValue = Number($("#quantity").val()) + 1
+
+  $("#quantity").val(orderValue)
+});
+
+$(document).on("click", ".btn.btn-dark", function(){
+  console.log("test")
+});
+
+
 
 
 
