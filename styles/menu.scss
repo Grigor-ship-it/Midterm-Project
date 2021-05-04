@@ -21,7 +21,8 @@
 }
 
 .menuItems {
-
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 20px;
   margin-top: 24px;
   margin-bottom: 34px;
   align-items: center;
@@ -38,7 +39,9 @@ btn.btn-secondary{
 }
 
 .menuItem {
-
+  height: 420px;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 20px;
   margin-top: 34px;
   margin-bottom: 34px;
   align-items: center;
@@ -48,14 +51,48 @@ btn.btn-secondary{
   padding: 0.5em;
 }
 
-.menuItems:hover {
-  box-shadow: 10px 10px 8px #888888;
-}
+
 
 .far.fa-arrow-alt-circle-left {
+  padding-right: 24px;
   font-size: 24px;
 }
 
 .far.fa-arrow-alt-circle-right {
+  padding-left: 24px;
   font-size: 24px;
+
 }
+
+.far.fa-arrow-alt-circle-left:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+.far.fa-arrow-alt-circle-right:hover{
+  color: blue;
+  cursor: pointer;
+}
+
+.menu-text {
+  display: flex;
+  text-align: center;
+  padding-bottom: 24px;
+  padding-top: 24px;
+}
+
+.image{
+  padding-top: 24px;
+  size: 300px;
+  height: 300px;
+  width: 300px;
+}
+
+#add-to-cart {
+margin-top: 12px;
+}
+
+#btn-group {
+
+}
+
