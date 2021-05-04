@@ -17,10 +17,7 @@ $( document ).ready(function() {
   `)
   $(".registerFields").hide()
   $(".loginFields").hide()
-
-
-
-    $('.shopping-cart-view').hide()
+  $('.shopping-cart-view').hide()
 
   $("#menuItemsButton").click(function(event) {
     $.ajax({
@@ -75,25 +72,22 @@ $( document ).ready(function() {
   let password = $("#passwordR").val()
    let telephone = $("#telephone").val()
    let paymentInfo =  $("#payment-info").val()
+
     $.ajax({
       url: "/register",
       method: "POST",
-      data : {email,name,password,telephone,paymentInfo},
-      success: function(res ) {
+      data : {email, name, password, telephone, paymentInfo},
+      success: function(res) {
 
         $('.registerFields').hide();
-
         $("#email").val("")
         $("#usernameR").val("")
         $("#passwordR").val("")
         $("#telephone").val("")
         $("#payment-info").val("")
       }
-
-
     })
   })
-
 
   $(document).on("click", ".logout", function(){
 
@@ -108,12 +102,11 @@ $( document ).ready(function() {
     if ($('.loginFields').is(':visible')) {
       $(".loginFields").hide()
     } else {
-        $(".loginFields").show()
-        $('.registerFields').hide();
-        $(".loginFields").hide().slideDown();
+      $(".loginFields").show()
+      $('.registerFields').hide();
+      $(".loginFields").hide().slideDown();
     }
   })
-
 
   $('.register').on('click',() => {
     if ($('.registerFields').is(':visible')) {
@@ -170,6 +163,8 @@ $( document ).ready(function() {
                   item_price,
                   item_name
                 });
+                console.log('im here');
+                $('.shopping-cart-view').append(`<button type="button" id="checkout" class="btn btn-dark">Checkout</button>`)
               });
             }
           })
