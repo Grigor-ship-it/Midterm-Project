@@ -1,10 +1,7 @@
-DROP TABLE IF EXISTS orders CASCADE;
-CREATE TABLE orders(
+DROP TABLE IF EXISTS user_orders CASCADE;
+CREATE TABLE user_orders(
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   item_id INTEGER REFERENCES menu_items(id) ON DELETE CASCADE,
-  ordered_at TIMESTAMP,
-  order_finished TIMESTAMP,
-  order_status BOOLEAN DEFAULT FALSE
-
+  total_price INTEGER DEFAULT 0
 );
