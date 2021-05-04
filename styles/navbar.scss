@@ -21,7 +21,7 @@ div.userInfo {
   box-shadow: 2px 2px 10px darkgrey;
 }
 
-.navRight {
+.navRight, .navLeft {
   display: flex;
 }
 
@@ -51,5 +51,24 @@ div.userInfo {
 
 .registerFields {
   right: 15px;
+}
+
+.shopping-cart{
+
+  position: relative;
+  display: inline-block;
+  padding-left: 1em;
+
+}
+
+.shopping-cart-view {
+  display: block;
+  position: absolute;
+  top: 3em;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+
 }
 
