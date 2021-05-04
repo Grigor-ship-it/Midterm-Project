@@ -1,22 +1,24 @@
-
-
 $( document ).ready(function() {
   const shoppingCart =[];
 
   $(".navRight").append(`<button type="button" class="login">LOGIN</button>`)
   $(".navRight").append(`<button type="button" class="register">REGISTER</button>`)
-  $('.registerFields').append(`<input type="text" id="usernameR" placeholder="username" />
-    <input type="password" id="passwordR" placeholder="password" />
-    <button id="register" type="button">Register</button>`)
+  $('.registerFields').append(`
+      <input type="text" id="usernameR" placeholder="username" />
+      <input type="password" id="passwordR" placeholder="password" />
+      <button id="register" type="button">Register</button>
+    `)
     $('.loginFields').append(`
-    <input type="text" id="usernameL" placeholder="username" />
-    <input type="password" id="passwordL" placeholder="password" />
-    <button id="login" type="button">Login</button>`)
+      <input type="text" id="usernameL" placeholder="username" />
+      <input type="password" id="passwordL" placeholder="password" />
+      <button id="login" type="button">Login</button>
+    `)
     $(".registerFields").hide()
     $(".loginFields").hide()
 
 
 
+    $('.shopping-cart-view').hide()
 
   $("#menuItemsButton").click(function(event) {
     $.ajax({
@@ -31,7 +33,7 @@ $( document ).ready(function() {
     })
   })
 
-  $(".fas").on('click',() => {
+  $("#user-slide-down").on('click',() => {
     $.ajax({
       url: "/users",
       method: "GET",
@@ -126,33 +128,25 @@ $( document ).ready(function() {
                 <button type="button" id="add-to-cart" class="btn btn-dark">Add to cart</button>
               </div>
               `)
-              $('#add-to-cart').on("click", function(){
-                let quantity = $('#quantity').val();
 
-                // // orders function
-                // $(`#${item.id}-btn`).click(function(event) {
-                //   console.log('button clicked');
-                //  $.ajax({
-                //    url: "/orders",
-                //    method: "GET",
-                //    success: (data) => {
-                //      console.log(data);
-                //     $(".page-header").append(`<div class="menu-item">${data}</div>`)
-                //      let orders = data.orders
-                //      console.log(orders);
-                //     //  orders.forEach(order => {
-                //     //    $(".cart").append(`<div class="menu-item">hello</div>`)
-                //     //  })
-                //    }
-                //   })
-                // })
+              // temporary cart storage until order is finalized in checkout
+              $('#add-to-cart').on("click", function(){
+
+                let quantity = $('#quantity').val();
+                const item_id = item.id
+                const item_price = item.price
+                const item_name = item.name
+                shoppingCart.push({
+                  item_id,
+                  quantity,
+                  item_price,
+                  item_name
+                });
               });
             }
           })
         })
       })
-      //  add to cart functionality
-
     }
   })
 
@@ -161,37 +155,53 @@ $( document ).ready(function() {
     method: 'GET',
     success: (data) => {
       let timeStamp = Object.values(data.orders[0]['?column?'])
-      console.log(Object.values(data.orders[0]['?column?']));
         $('.time').append(`<div>
         ${timeStamp} minutes</div>`)
     }
   })
 
+  $('#shopping-cart').on("click", function(){
+    $('.shopping-cart-view').empty();
 
-$(document).on("click", ".btn.btn-secondary1", function(){
-  let orderValue = Number($("#quantity").val()) - 1
+    if (shoppingCart.length !== 0) {
+      // for each item added to the shopping cart
+      shoppingCart.forEach(element => {
 
-  $("#quantity").val(orderValue)
-});
+        $('.shopping-cart-view').append(`
+          <div class="${element.item_id}-cart-item">
+            ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
+            <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
+          </div>
+        `)
+          // Remove item from shopping cart functionality to come next push
+      });
+    } else {
+      $('.shopping-cart-view').append(`
+        <p class="cart-quantity">Please add items to your cart first!</p>
+      `)
+    }
 
-$(document).on("click", ".btn.btn-secondary2", function(){
-  let orderValue = Number($("#quantity").val()) + 1
+    if ($('.shopping-cart-view').is(':visible')) {
+      $(".shopping-cart-view").hide()
+    } else {
+      $('.shopping-cart-view').hide().slideDown();
+    }
+  });
 
-  $("#quantity").val(orderValue)
-});
+  $(document).on("click", ".btn.btn-secondary1", function(){
+    let orderValue = Number($("#quantity").val()) - 1
 
-$(document).on("click", ".btn.btn-dark", function(){
-  console.log("test")
-});
+    $("#quantity").val(orderValue)
+  });
 
+  $(document).on("click", ".btn.btn-secondary2", function(){
+    let orderValue = Number($("#quantity").val()) + 1
 
+    $("#quantity").val(orderValue)
+  });
 
-
-
+  $(document).on("click", ".btn.btn-dark", function(){
+    console.log("test")
+  });
 
 })
-
-
-
-
-
