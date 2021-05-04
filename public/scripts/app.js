@@ -4,17 +4,19 @@ $( document ).ready(function() {
   $(".navRight").append(`<button type="button" class="login">LOGIN</button>`)
   $(".navRight").append(`<button type="button" class="register">REGISTER</button>`)
   $('.registerFields').append(`
-      <input type="text" id="usernameR" placeholder="username" />
-      <input type="password" id="passwordR" placeholder="password" />
-      <button id="register" type="button">Register</button>
-    `)
-    $('.loginFields').append(`
-      <input type="text" id="usernameL" placeholder="username" />
-      <input type="password" id="passwordL" placeholder="password" />
-      <button id="login" type="button">Login</button>
-    `)
-    $(".registerFields").hide()
-    $(".loginFields").hide()
+    <input type="text" id="usernameR" placeholder="name" />
+    <input type="password" id="passwordR" placeholder="password" />
+    <input type="text" id="email" placeholder="email" />
+    <input type="tel" id="telephone" placeholder="telephone" />
+    <input type="number" id="payment-info" placeholder="payment info" />
+    <button id="register" type="submit">Register</button>`)
+  $('.loginFields').append(`
+    <input type="text" id="usernameL" placeholder="username" />
+    <input type="password" id="passwordL" placeholder="password" />
+    <button id="login" type="button">Login</button>
+  `)
+  $(".registerFields").hide()
+  $(".loginFields").hide()
 
 
 
@@ -66,6 +68,32 @@ $( document ).ready(function() {
       }
     })
   });
+
+  $(document).on("click", "#register", function(){
+   let email = $("#email").val()
+   let name = $("#usernameR").val()
+  let password = $("#passwordR").val()
+   let telephone = $("#telephone").val()
+   let paymentInfo =  $("#payment-info").val()
+    $.ajax({
+      url: "/register",
+      method: "POST",
+      data : {email,name,password,telephone,paymentInfo},
+      success: function(res ) {
+
+        $('.registerFields').hide();
+
+        $("#email").val("")
+        $("#usernameR").val("")
+        $("#passwordR").val("")
+        $("#telephone").val("")
+        $("#payment-info").val("")
+      }
+
+
+    })
+  })
+
 
   $(document).on("click", ".logout", function(){
 
