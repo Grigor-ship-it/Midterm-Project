@@ -1,23 +1,30 @@
 $( document ).ready(function() {
   const shoppingCart =[];
+  $(".registerFields").hide()
+  $(".loginFields").hide()
+  $('.shopping-cart-view').hide()
+  $('.checkout-confirmation').hide()
 
-  $(".navRight").append(`<button type="button" class="login">LOGIN</button>`)
-  $(".navRight").append(`<button type="button" class="register">REGISTER</button>`)
+  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
+
+  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
+
   $('.registerFields').append(`
+  <ul class='drop'>
     <input type="text" id="usernameR" placeholder="name" />
     <input type="password" id="passwordR" placeholder="password" />
     <input type="text" id="email" placeholder="email" />
     <input type="tel" id="telephone" placeholder="telephone" />
     <input type="number" id="payment-info" placeholder="payment info" />
-    <button id="register" type="submit">Register</button>`)
+    <button id="register" type="submit">Register</button>
+  </ul>`)
+
   $('.loginFields').append(`
     <input type="text" id="usernameL" placeholder="username" />
     <input type="password" id="passwordL" placeholder="password" />
     <button id="login" type="button">Login</button>
   `)
-  $(".registerFields").hide()
-  $(".loginFields").hide()
-  $('.shopping-cart-view').hide()
+
 
   $("#menuItemsButton").click(function(event) {
     $.ajax({
@@ -39,10 +46,10 @@ $( document ).ready(function() {
       success: (data) => {
         let users = data.users[1];
         $('.userInfo').empty();
-        $(".userInfo").append(`<div>${users.name}</div>`)
-        $(".userInfo").append(`<div>${users.email}</div>`)
-        $(".userInfo").append(`<div>${users.favourites}</div>`)
-        $(".userInfo").append(`<div>${users.allergens}</div>`)
+        $(".userInfo").append(`<li><a href='#'>${users.name}</a></li>`)
+        $(".userInfo").append(`<li><a href='#'>${users.email}</a></li>`)
+        $(".userInfo").append(`<li><a href='#'>${users.favourites}</a></li>`)
+        $(".userInfo").append(`<li><a href='#'>${users.allergens}</a></li>`)
         $('.userInfo').toggle('fast');
       }
     })
@@ -61,18 +68,17 @@ $( document ).ready(function() {
         $('.registerFields').hide();
         $(".navRight").append(`<div class="greeting">Hello ${data.users[0].name}</div>`)
         $(".navRight").append(`<button type="button" class="logout">Logout</button>`)
-       }
+      }
       }
     })
   });
 
   $(document).on("click", "#register", function(){
-   let email = $("#email").val()
-   let name = $("#usernameR").val()
+  let email = $("#email").val()
+  let name = $("#usernameR").val()
   let password = $("#passwordR").val()
-   let telephone = $("#telephone").val()
-   let paymentInfo =  $("#payment-info").val()
-
+  let telephone = $("#telephone").val()
+  let paymentInfo =  $("#payment-info").val()
     $.ajax({
       url: "/register",
       method: "POST",
@@ -102,9 +108,9 @@ $( document ).ready(function() {
     if ($('.loginFields').is(':visible')) {
       $(".loginFields").hide()
     } else {
-      $(".loginFields").show()
-      $('.registerFields').hide();
-      $(".loginFields").hide().slideDown();
+        $(".loginFields").show()
+        $('.registerFields').hide();
+        $(".loginFields").hide().slideDown('fast');
     }
   })
 
@@ -113,7 +119,7 @@ $( document ).ready(function() {
     $(".registerFields").hide()
     } else {
     $('.loginFields').hide();
-    $('.registerFields').hide().slideDown();
+    $('.registerFields').hide().slideDown('fast');
     }
   })
 
@@ -163,8 +169,6 @@ $( document ).ready(function() {
                   item_price,
                   item_name
                 });
-                console.log('im here');
-                $('.shopping-cart-view').append(`<button type="button" id="checkout" class="btn btn-dark">Checkout</button>`)
               });
             }
           })
@@ -185,19 +189,59 @@ $( document ).ready(function() {
 
   $('#shopping-cart').on("click", function(){
     $('.shopping-cart-view').empty();
+    $('.checkout-confirmation').empty();
 
     if (shoppingCart.length !== 0) {
       // for each item added to the shopping cart
+      let subTotal = 0;
+      let tax = 0;
+      let checkoutTotal = 0;
       shoppingCart.forEach(element => {
+        subTotal += element.item_price * element.quantity;
+        if (element.quantity) {
+          $('.shopping-cart-view').append(`
+          <li class="${element.item_id}-cart-item">
+              ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
+              <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
 
-        $('.shopping-cart-view').append(`
-          <div class="${element.item_id}-cart-item">
-            ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
-            <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
-          </div>
+              </li>
+          `)
+        }
+        $('.checkout-confirmation').append(`
+          <li class="${element.item_id}-checkout-item">${element.quantity} x ${element.item_name} Total = $${element.item_price * element.quantity}</li>
+          <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
         `)
           // Remove item from shopping cart functionality to come next push
       });
+
+
+      $('.shopping-cart-view').append(`<button type="button" id="checkout" class="btn btn-dark">Checkout</button>`)
+      $('#checkout').on('click', function() {
+        console.log('pressing checkout');
+        // if ($('.registerFields').is(':visible')) {
+        //   $(".registerFields").hide()
+        //   } else {
+        //   $('.loginFields').hide();
+        //   $('.registerFields').hide().slideDown('fast');
+        //   }
+        $('.checkout-confirmation').show();
+      });
+      tax = subTotal * 0.13;
+      checkoutTotal = subTotal + tax;
+
+      $('.checkout-confirmation').append(`
+        <div class="order-total">
+          Sub-total = $${subTotal}
+          Tax = $${tax}
+          Order Total =  $${checkoutTotal}
+        </div>
+      `);
+      $('.checkout-confirmation').append(`
+        <button class="order-final">
+          ORDER NOW
+        </div>
+      `);
+
     } else {
       $('.shopping-cart-view').append(`
         <p class="cart-quantity">Please add items to your cart first!</p>
@@ -211,6 +255,8 @@ $( document ).ready(function() {
     }
   });
 
+
+
   $(document).on("click", ".btn.btn-secondary1", function(){
     let orderValue = Number($("#quantity").val()) - 1
 
@@ -223,8 +269,8 @@ $( document ).ready(function() {
     $("#quantity").val(orderValue)
   });
 
-  $(document).on("click", ".btn.btn-dark", function(){
-    console.log("test")
-  });
+  // $(document).on("click", ".btn.btn-dark", function(){
+  //   console.log("test")
+  // });
 
 })

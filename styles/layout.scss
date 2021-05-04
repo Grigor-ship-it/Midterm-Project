@@ -7,3 +7,20 @@ body {
     color: #244751;
   }
 }
+
+.checkout-confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  min-width: 20em;
+  border-style: solid;
+  background-color: white;
+  z-index: 20;
+  min-height: 20em;
+  padding: 2em;
+}
