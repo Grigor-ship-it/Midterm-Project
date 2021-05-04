@@ -4,18 +4,25 @@ $( document ).ready(function() {
   $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
   $('.registerFields').append(`
-  <ul class='drop'>
-    <input type="text" id="usernameR" placeholder="name" />
-    <input type="password" id="passwordR" placeholder="password" />
-    <input type="text" id="email" placeholder="email" />
-    <input type="tel" id="telephone" placeholder="telephone" />
-    <input type="number" id="payment-info" placeholder="payment info" />
-    <button id="register" type="submit">Register</button>
-  </ul>`)
+  <form>
+    <fieldset>
+      <input type="text" id="usernameR" placeholder="name" />
+      <input type="password" id="passwordR" placeholder="password" />
+      <input type="text" id="email" placeholder="email" />
+      <input type="tel" id="telephone" placeholder="telephone" />
+      <input type="number" id="payment-info" placeholder="payment info" />
+      <button id="register" type="submit">Register</button>
+    </fieldset>
+  </form>
+  `)
   $('.loginFields').append(`
-    <input type="text" id="usernameL" placeholder="username" />
-    <input type="password" id="passwordL" placeholder="password" />
-    <button id="login" type="button">Login</button>
+  <form>
+    <fieldset>
+      <input type="text" id="usernameL" placeholder="username" />
+      <input type="password" id="passwordL" placeholder="password" />
+      <button id="login" type="button">Login</button>
+    </fieldset>
+  </form>
   `)
   $(".registerFields").hide()
   $(".loginFields").hide()
