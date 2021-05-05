@@ -118,21 +118,34 @@ nav{
         position: absolute;
         left: 0;
         margin: 0;
+        padding: 0 3px;
         background: $color-base;
         border-radius: 2px;
         box-shadow: 0 0 5px rgba(#000, .15);
         display: none;
 
+        >h5 {
+          font-size:16px;
+          margin:0;
+          font-family:sans-serif;
+          padding-left: 2px;
+        }
+
+        &:last-child{
+          padding-bottom:3px;
+        }
+
         >li {
           clear: both;
           list-style: none;
           display: block;
-          padding: 0 10px;
+          padding: 3px 10px;
           margin: 0;
           width: 100%;
 
           &:hover{
             background: lighten($color-accent,40);
+
             >a {
               background: lighten($color-accent,40);
               color: $color-base;

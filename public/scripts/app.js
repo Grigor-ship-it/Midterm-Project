@@ -51,12 +51,12 @@ $( document ).ready(function() {
       url: "/users",
       method: "GET",
       success: (data) => {
-        let users = data.users[1];
-        $('.userInfo').empty();
-        $(".userInfo").append(`<li><a href='#'>${users.name}</a></li>`)
-        $(".userInfo").append(`<li><a href='#'>${users.email}</a></li>`)
-        $(".userInfo").append(`<li><a href='#'>${users.favourites}</a></li>`)
-        $(".userInfo").append(`<li><a href='#'>${users.allergens}</a></li>`)
+        let users = data.users[0];
+        $(".userInfo").empty()
+        $(".userInfo").append(`<h5>name</h5><li><a href='#'>${users.name}</a></li>`)
+        $(".userInfo").append(`<h5>email</h5><li><a href='#'>${users.email}</a></li>`)
+        $(".userInfo").append(`<h5>favourite</h5><li><a href='#'>${users.favourites}</a></li>`)
+        $(".userInfo").append(`<h5>allergens</h5><li><a href='#'>${users.allergens}</a></li>`)
         $('.userInfo').toggle('fast');
       }
     })
