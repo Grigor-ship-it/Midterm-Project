@@ -34,13 +34,15 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes     = require("./routes/users");
-const ordersRoutes    = require("./routes/orders");
-const menuRoutes      = require("./routes/menu_items");
-const individualItems = require("./routes/individual_items");
-const orderRoutes     = require("./routes/orders");
-const registerRoutes  = require("./routes/register");
-const finalRoutes     = require("./routes/register");
+const usersRoutes       = require("./routes/users");
+const ordersRoutes      = require("./routes/orders");
+const menuRoutes        = require("./routes/menu_items");
+const individualItems   = require("./routes/individual_items");
+const orderRoutes       = require("./routes/orders");
+const registerRoutes    = require("./routes/register");
+const orderItemRoutes   = require("./routes/order_items");
+const finalItemRoutes   = require("./routes/final_order_items");
+const finalOrderRoutes  = require("./routes/final_orders");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -50,7 +52,9 @@ app.use("/menu", menuRoutes(db));
 app.use("/menuItem", individualItems(db));
 app.use("/orders", orderRoutes(db));
 app.use("/register", registerRoutes(db));
-app.use("/final", finalRoutes(db));
+app.use("/orderItems", orderItemRoutes(db));
+app.use("/finalItems", finalItemRoutes(db));
+app.use("/finalOrders", finalOrderRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
