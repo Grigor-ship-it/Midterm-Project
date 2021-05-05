@@ -1,16 +1,20 @@
 $( document ).ready(function() {
   const shoppingCart =[];
+  $('.checkout-confirmation').hide();
 
   $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
+  $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
+  $(".logout").hide()
   $('.registerFields').append(`
   <form>
     <fieldset>
-      <input type="text" id="usernameR" placeholder="name" />
-      <input type="password" id="passwordR" placeholder="password" />
-      <input type="text" id="email" placeholder="email" />
-      <input type="tel" id="telephone" placeholder="telephone" />
-      <input type="number" id="payment-info" placeholder="payment info" />
+      <input type="text" id="usernameR" placeholder="Name" />
+      <input type="password" id="passwordR" placeholder="Password" />
+      <input type="text" id="email" placeholder="Email" />
+      <input type="tel" id="telephone" placeholder="Telephone" />
+      <input type="text" id="allergens" placeholder="Allergens" />
+      <input type="number" id="payment-info" placeholder="Payment info" />
       <button id="register" type="submit">Register</button>
     </fieldset>
   </form>
@@ -23,11 +27,13 @@ $( document ).ready(function() {
       <button id="login" type="button">Login</button>
     </fieldset>
   </form>
+
   `)
+
   $(".registerFields").hide()
   $(".loginFields").hide()
 
-  $("#menuItemsButton").click(function(event) {
+  $("#menuItemsButton").click(function() {
     $.ajax({
       url: "/menu",
       method: "GET",
@@ -65,14 +71,11 @@ $( document ).ready(function() {
         {
 
 
-        $("#register").hide();
-        $("#login").hide();
+        $(".register").hide();
+        $(".login").hide();
         $('.loginFields').hide();
-        $(".links").hide();
-
         $('.registerFields').hide();
-        $(".navRight").append(`<div class="greeting">Hello ${data.users[0].name}</div>`)
-        $(".navRight").append(`<button type="button" class="logout">Logout</button>`)
+        $(".logout").show()
       }
       }
     })
@@ -99,8 +102,6 @@ $( document ).ready(function() {
         $("#payment-info").val("")
         $("#allergens").val("")
       }
-
-
     })
   })
 
@@ -108,8 +109,8 @@ $( document ).ready(function() {
 
     $(".greeting").hide()
     $(".logout").hide()
-    $("#login").show();
-    $("#register").show();
+    $(".login").show();
+    $(".register").show();
     $(".links").show();
 
   });
@@ -118,18 +119,18 @@ $( document ).ready(function() {
     if ($('.loginFields').is(':visible')) {
       $(".loginFields").hide()
     } else {
-        $(".loginFields").show()
-        $('.registerFields').hide();
-        $(".loginFields").hide().slideDown('fast');
+      $(".loginFields").show()
+      $('.registerFields').hide();
+      $(".loginFields").hide().slideDown('fast');
     }
   })
 
   $('.register').on('click',() => {
     if ($('.registerFields').is(':visible')) {
-    $(".registerFields").hide()
+      $(".registerFields").hide()
     } else {
-    $('.loginFields').hide();
-    $('.registerFields').hide().slideDown('fast');
+      $('.loginFields').hide();
+      $('.registerFields').hide().slideDown('fast');
     }
   })
 
@@ -212,7 +213,6 @@ $( document ).ready(function() {
             $('#seconds').html(`<span class='timeStyle'>${minutes}:0${seconds}</span>`)
           } else
           $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`)
-
         },1000);
           if (minutes === 0 && seconds === 0) {
           clearInterval(intervalID);
@@ -225,18 +225,88 @@ $( document ).ready(function() {
 
   $('#shopping-cart').on("click", function(){
     $('.shopping-cart-view').empty();
+    $('.checkout-confirmation').empty();
 
     if (shoppingCart.length !== 0) {
       // for each item added to the shopping cart
+      let subTotal = 0;
+      let tax = 0;
+      let checkoutTotal = 0;
+      $('.checkout-confirmation').append(`
+      <h4 class="checkout-title">Order confirmation</h4>
+    `);
       shoppingCart.forEach(element => {
 
-        $('.shopping-cart-view').append(`
-          <li class="${element.item_id}-cart-item">
-            ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
-            <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
-          </li>
-        `)
-          // Remove item from shopping cart functionality to come next push
+        subTotal += Number(element.item_price) * Number(element.quantity);
+        if (element.quantity) {
+          $('.shopping-cart-view').append(`
+            <li class="${element.item_id}-cart-item">
+              ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
+              <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
+          `)
+          // Remove item from shopping cart
+          $(`#${element.item_id}-remove-item`).on('click', function() {
+            const removeIndex = shoppingCart.indexOf(element);
+            shoppingCart.splice(removeIndex, 1);
+          })
+        }
+    });
+
+
+      $('.shopping-cart-view').append(`<button type="button" id="checkout" class="btn btn-dark">Checkout</button>`)
+      $('#checkout').on('click', function() {
+        $('.checkout-confirmation').show();
+      });
+      // rounding to 2 decimal places
+      tax = subTotal * 0.13;
+      tax = Number(tax.toFixed(2));
+
+      checkoutTotal = subTotal + tax;
+
+      $('.checkout-confirmation').append(`
+        <div class="order-total">
+          <p class="sub-total">Sub-total = $${subTotal}</p>
+          <p class="tax">Tax = $${tax}</p>
+          <p class="order-total">Order Total =  $${checkoutTotal}</p>
+        </div>
+      `);
+      $('.checkout-confirmation').append(`
+        <button class="order-final">
+          ORDER NOW
+        </div>
+      `);
+
+      $('.order-final').on("click", function(event) {
+        console.log(shoppingCart);
+        let quantity = $('#quantity').val();
+        shoppingCart.forEach(element => {
+          const item_id = element.item_id
+          const item_price = element.item_price
+          const item_name = element.item_name
+
+        $.ajax({
+          url: "/finalItems",
+          method: "POST",
+          data : {item_id, item_price, item_name, quantity},
+          success: function() {
+
+            console.log('success1');
+
+          }
+        })
+
+      });
+
+      $.ajax({
+        url: "/finalOrders",
+        method: "POST",
+        success: function() {
+
+        console.log('success2');
+        shoppingCart.length = 0;
+      }
+    })
+      $('.checkout-confirmation').hide();
       });
     } else {
       $('.shopping-cart-view').append(`
@@ -251,7 +321,6 @@ $( document ).ready(function() {
     }
   });
 
-
   $(document).on("click", ".btn.btn-secondary1", function(){
     if ($("#quantity").val() > 1 ) {
     let orderValue = Number($("#quantity").val()) - 1
@@ -264,10 +333,6 @@ $( document ).ready(function() {
 
     $("#quantity").val(orderValue)
   });
-
-  // $(document).on("click", ".btn.btn-dark", function(){
-  //   console.log("test")
-  // });
 
   //scroll left
   $(document).on("click", ".far.fa-arrow-alt-circle-left", function(){
