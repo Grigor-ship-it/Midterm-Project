@@ -8,8 +8,12 @@ body {
   }
 }
 
+main {
+  height: 100vh;
+}
+
 .checkout-confirmation {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   position: fixed;

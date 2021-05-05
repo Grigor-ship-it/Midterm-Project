@@ -27,34 +27,6 @@ $( document ).ready(function() {
   $(".registerFields").hide()
   $(".loginFields").hide()
 
-  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
-
-  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
-
-  $('.registerFields').append(`
-  <form>
-    <fieldset>
-      <input type="text" id="usernameR" placeholder="Name" />
-      <input type="password" id="passwordR" placeholder="Password" />
-      <input type="text" id="email" placeholder="Email" />
-      <input type="tel" id="telephone" placeholder="Telephone" />
-      <input type="text" id="allergens" placeholder="Allergens" />
-      <input type="number" id="payment-info" placeholder="Payment info" />
-      <button id="register" type="submit">Register</button>
-    </fieldset>
-  </form>
-  `)
-  $('.loginFields').append(`
-  <form>
-    <fieldset>
-      <input type="text" id="usernameL" placeholder="username" />
-      <input type="password" id="passwordL" placeholder="password" />
-      <button id="login" type="button">Login</button>
-    </fieldset>
-  </form>
-  `)
-
-
   $("#menuItemsButton").click(function(event) {
     $.ajax({
       url: "/menu",
@@ -92,7 +64,7 @@ $( document ).ready(function() {
         if ($('#usernameL').val() === data.users[0].email && $('#passwordL').val() === data.users[0].password)
         {
 
-        console.log("its working")
+
         $("#register").hide();
         $("#login").hide();
         $('.loginFields').hide();
@@ -183,7 +155,7 @@ $( document ).ready(function() {
 
               $(".individualItem").append(`
               <div id="${item.id}-expanded" class="menuItem"><b>${item.name}</b>
-              <img src=${item.display_image} style="width:300px;height:300px;" class="image">
+              <img src=${item.display_image} style="width:300px;height:264px;" class="image">
               <div class="menu-text"
                 <br>${item.price}$
                 <br>${item.description}
@@ -280,13 +252,12 @@ $( document ).ready(function() {
     }
   });
 
-  $(document).on("click", ".btn.btn-secondary1", function(){
-    let orderValue = Number($("#quantity").val()) - 1
 
   $(document).on("click", ".btn.btn-secondary1", function(){
+    if ($("#quantity").val() > 1 ) {
     let orderValue = Number($("#quantity").val()) - 1
-
     $("#quantity").val(orderValue)
+    }
   });
 
   $(document).on("click", ".btn.btn-secondary2", function(){
@@ -307,6 +278,10 @@ $( document ).ready(function() {
   //scroll right
   $(document).on("click", ".far.fa-arrow-alt-circle-right", function(){
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
+
   })
-})
+
+
+
 });
+
