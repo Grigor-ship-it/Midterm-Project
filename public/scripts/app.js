@@ -1,7 +1,6 @@
 $( document ).ready(function() {
   const shoppingCart =[];
   $('.checkout-confirmation').hide();
-
   $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
   $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
@@ -184,6 +183,10 @@ $( document ).ready(function() {
                   item_price,
                   item_name
                 });
+               $('.confirmation-message').append(`<div class="alert success">
+               <span class="closebtn">&times;</span>
+               <strong>Success!</strong> Added item(s) into cart.
+               </div>`)
               });
             }
           })
@@ -191,6 +194,29 @@ $( document ).ready(function() {
       })
     }
   })
+
+ $('body').on("click", function(event){
+   let target = $(event.target)
+   if (!(target.is(".login"))) {
+     $('.loginFields').hide()
+   }
+   if (!(target.is(".register"))) {
+    $('.registerFields').hide()
+  }
+  if (!(target.is('#add-to-cart'))) {
+    $('.alert.success').hide()
+  }
+  if (!(target.is(".checkout-confirmation"))&& !(target.is("#checkout"))) {
+    $('.checkout-confirmation').hide()
+  }
+  if (!(target.is("#shopping-cart"))) {
+    $('.shopping-cart-view').hide()
+  }
+  if (!(target.is("#user-slide-down"))) {
+    $('.userInfo').hide()
+  }
+
+ })
 
   $.ajax({
     url: '/orders/timestamp',
@@ -344,5 +370,7 @@ $( document ).ready(function() {
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
 
   })
+
+
 });
 
