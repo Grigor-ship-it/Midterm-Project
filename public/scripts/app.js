@@ -6,7 +6,6 @@ $( document ).ready(function() {
   $('.checkout-confirmation').hide()
 
   $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
-
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
 
   $('.registerFields').append(`
@@ -209,13 +208,18 @@ $( document ).ready(function() {
     $('.shopping-cart-view').empty();
     $('.checkout-confirmation').empty();
 
+
     if (shoppingCart.length !== 0) {
       // for each item added to the shopping cart
       let subTotal = 0;
       let tax = 0;
       let checkoutTotal = 0;
+      $('.checkout-confirmation').append(`
+      <h4 class="checkout-title">Order confirmation</h4>
+    `);
       shoppingCart.forEach(element => {
-        subTotal += element.item_price * element.quantity;
+        console.log(typeof Number(element.item_price), typeof Number(element.quantity));
+        subTotal += Number(element.item_price) * Number(element.quantity);
         if (element.quantity) {
           $('.shopping-cart-view').append(`
           <li class="${element.item_id}-cart-item">
@@ -244,14 +248,17 @@ $( document ).ready(function() {
         //   }
         $('.checkout-confirmation').show();
       });
+      // rounding to 2 decimal places
       tax = subTotal * 0.13;
+      tax = Number(tax.toFixed(2));
+      console.log(typeof tax, typeof subTotal);
       checkoutTotal = subTotal + tax;
 
       $('.checkout-confirmation').append(`
         <div class="order-total">
-          Sub-total = $${subTotal}
-          Tax = $${tax}
-          Order Total =  $${checkoutTotal}
+          <p class="sub-total">Sub-total = $${subTotal}</p>
+          <p class="tax">Tax = $${tax}</p>
+          <p class="order-total">Order Total =  $${checkoutTotal}</p>
         </div>
       `);
       $('.checkout-confirmation').append(`
@@ -260,6 +267,26 @@ $( document ).ready(function() {
         </div>
       `);
 
+      $('.order-final').on("click", function() {
+        $.ajax({
+          url: "/final",
+          method: "POST",
+          data : {shoppingCart},
+          success: function(res) {
+
+            // $('.registerFields').hide();
+            // $("#email").val("")
+            // $("#usernameR").val("")
+            // $("#passwordR").val("")
+            // $("#telephone").val("")
+            // $("#payment-info").val("")
+            // $("#allergens").val("")
+            // smptying the shopping cart
+            shoppingCart.length = 0;
+
+          }
+        })
+      });
     } else {
       $('.shopping-cart-view').append(`
         <p class="cart-quantity">Please add items to your cart first!</p>
