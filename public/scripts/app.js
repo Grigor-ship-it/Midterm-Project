@@ -230,19 +230,16 @@ $( document ).ready(function() {
         let minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((countDown % (1000 * 60)) / 1000);
 
-        // for (let i = 0; i < minutes; i--) {
-        console.log(minutes);
-        console.log(seconds);
         const intervalID = setInterval(function() {
-        if (seconds <= 0) {
-          minutes --;
-          seconds = 60
-          console.log(minutes);
-          $('#minutes').html(`${minutes} minutes`)
-        }
-        seconds--;
-        $('#seconds').html(`${seconds} seconds`)
-        console.log(seconds);
+          if (seconds <= 0) {
+            minutes --;
+            seconds = 60
+          }
+          seconds--;
+          if (seconds <= 9) {
+            $('#seconds').html(`<span class='timeStyle'>${minutes}:0${seconds}</span>`)
+          } else
+          $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`)
 
         },1000);
 
