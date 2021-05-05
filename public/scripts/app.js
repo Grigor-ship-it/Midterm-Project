@@ -312,3 +312,4 @@ $( document ).ready(function() {
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
   })
 })
+});
