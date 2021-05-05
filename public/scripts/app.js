@@ -1,9 +1,31 @@
 $( document ).ready(function() {
   const shoppingCart =[];
+
+  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
+  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
+  $('.registerFields').append(`
+  <form>
+    <fieldset>
+      <input type="text" id="usernameR" placeholder="name" />
+      <input type="password" id="passwordR" placeholder="password" />
+      <input type="text" id="email" placeholder="email" />
+      <input type="tel" id="telephone" placeholder="telephone" />
+      <input type="number" id="payment-info" placeholder="payment info" />
+      <button id="register" type="submit">Register</button>
+    </fieldset>
+  </form>
+  `)
+  $('.loginFields').append(`
+  <form>
+    <fieldset>
+      <input type="text" id="usernameL" placeholder="username" />
+      <input type="password" id="passwordL" placeholder="password" />
+      <button id="login" type="button">Login</button>
+    </fieldset>
+  </form>
+  `)
   $(".registerFields").hide()
   $(".loginFields").hide()
-  $('.shopping-cart-view').hide()
-  $('.checkout-confirmation').hide()
 
   $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
@@ -104,6 +126,8 @@ $( document ).ready(function() {
         $("#payment-info").val("")
         $("#allergens").val("")
       }
+
+
     })
   })
 
@@ -198,15 +222,40 @@ $( document ).ready(function() {
     url: '/orders/timestamp',
     method: 'GET',
     success: (data) => {
-      let timeStamp = Object.values(data.orders[0]['?column?'])
-        $('.time').append(`<div>
-        ${timeStamp} minutes</div>`)
+      const timer = function() {
+        let timeOrdered = Date.parse(data.orders[0].order_time);
+        let orderFinish = Date.parse(data.orders[0].finish_time);
+        let countDown = orderFinish - timeOrdered;
+        let minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((countDown % (1000 * 60)) / 1000);
+
+        // for (let i = 0; i < minutes; i--) {
+        console.log(minutes);
+        console.log(seconds);
+        const intervalID = setInterval(function() {
+        if (seconds <= 0) {
+          minutes --;
+          seconds = 60
+          console.log(minutes);
+          $('#minutes').html(`${minutes} minutes`)
+        }
+        seconds--;
+        $('#seconds').html(`${seconds} seconds`)
+        console.log(seconds);
+
+        },1000);
+
+      if (countDown <= 0) {
+        clearInterval(intervalID);
+        $('#time').html(`<div> TIME FOR PICKUP </div>`)
+      }
     }
+    timer();
+  }
   })
 
   $('#shopping-cart').on("click", function(){
     $('.shopping-cart-view').empty();
-    $('.checkout-confirmation').empty();
 
 
     if (shoppingCart.length !== 0) {
@@ -222,16 +271,16 @@ $( document ).ready(function() {
         subTotal += Number(element.item_price) * Number(element.quantity);
         if (element.quantity) {
           $('.shopping-cart-view').append(`
-          <li class="${element.item_id}-cart-item">
+            <li class="${element.item_id}-cart-item">
               ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
               <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
-
-              </li>
           `)
-        }
-        $('.checkout-confirmation').append(`
-          <li class="${element.item_id}-checkout-item">${element.quantity} x ${element.item_name} Total = $${element.item_price * element.quantity}</li>
-          <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
+
+        $('.shopping-cart-view').append(`
+          <li class="${element.item_id}-cart-item">
+            ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
+            <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
+          </li>
         `)
           // Remove item from shopping cart functionality to come next push
       });
@@ -300,7 +349,8 @@ $( document ).ready(function() {
     }
   });
 
-
+  $(document).on("click", ".btn.btn-secondary1", function(){
+    let orderValue = Number($("#quantity").val()) - 1
 
   $(document).on("click", ".btn.btn-secondary1", function(){
     let orderValue = Number($("#quantity").val()) - 1
@@ -328,3 +378,4 @@ $( document ).ready(function() {
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
   })
 })
+});

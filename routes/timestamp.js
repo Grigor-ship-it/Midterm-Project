@@ -4,7 +4,7 @@ const router  = express.Router();
 module.exports = (db) => {
   router.get("/", (req, res) => {
     db.query(`
-    SELECT TO_CHAR(CURRENT_TIMESTAMP + (20 * interval '1 minute'), 'HH:MI:SS')
+    SELECT TO_CHAR(CURRENT_TIMESTAMP + (20 * interval '1 minute'), 'HH:MI:SS'), TO_CHAR(ordered_at, 'HH:MI:SS') as now
     FROM orders;
     `)
       .then(data => {

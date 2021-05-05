@@ -18,7 +18,7 @@ module.exports = (db) => {
 
   router.get("/timestamp", (req, res) => {
     db.query(`
-    SELECT CURRENT_TIMESTAMP + (20 * interval '1 minute') - CURRENT_TIMESTAMP
+    SELECT ordered_at as order_time, order_finished as finish_time
     FROM orders;
     `)
     .then(data => {
