@@ -32,8 +32,7 @@ $( document ).ready(function() {
   $(".registerFields").hide()
   $(".loginFields").hide()
 
-
-  $("#menuItemsButton").click(function(event) {
+  $("#menuItemsButton").click(function() {
     $.ajax({
       url: "/menu",
       method: "GET",
@@ -279,7 +278,7 @@ $( document ).ready(function() {
         </div>
       `);
 
-      $('.order-final').on("click", function() {
+      $('.order-final').on("click", function(event) {
         console.log(shoppingCart);
         let quantity = $('#quantity').val();
         shoppingCart.forEach(element => {
