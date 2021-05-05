@@ -4,12 +4,8 @@ $( document ).ready(function() {
 
   $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
-<<<<<<< HEAD
   $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
   $(".logout").hide()
-=======
-
->>>>>>> master
   $('.registerFields').append(`
   <form>
     <fieldset>

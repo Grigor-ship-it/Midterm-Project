@@ -1,6 +1,7 @@
 const { response } = require('express');
 const express = require('express');
 const router  = express.Router();
+const sendSMSnotification = require("../send_sms")
 
 module.exports = (db) => {
   router.post("/", (req, res) => {
@@ -14,11 +15,13 @@ module.exports = (db) => {
       console.log(data);
       res.status(201).json({message: "final order"})
     })
+    .then(data => {sendSMSnotification()})
     .catch(err => {
       res
         .status(500)
         .json({ error: err.message });
-    });
+    })
+
 
 
   });
