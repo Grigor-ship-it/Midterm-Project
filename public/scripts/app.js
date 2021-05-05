@@ -18,7 +18,6 @@ $( document ).ready(function() {
     </fieldset>
   </form>
   `)
-
   $('.loginFields').append(`
   <form>
     <fieldset>
@@ -71,7 +70,7 @@ $( document ).ready(function() {
         if ($('#usernameL').val() === data.users[0].email && $('#passwordL').val() === data.users[0].password)
         {
 
-        console.log("its working")
+
         $("#register").hide();
         $("#login").hide();
         $('.loginFields').hide();
@@ -160,7 +159,7 @@ $( document ).ready(function() {
 
               $(".individualItem").append(`
               <div id="${item.id}-expanded" class="menuItem"><b>${item.name}</b>
-              <img src=${item.display_image} style="width:300px;height:300px;" class="image">
+              <img src=${item.display_image} style="width:300px;height:264px;" class="image">
               <div class="menu-text"
                 <br>${item.price}$
                 <br>${item.description}
@@ -283,7 +282,7 @@ $( document ).ready(function() {
           const item_id = element.item_id
           const item_price = element.item_price
           const item_name = element.item_name
-          // const item_id = shoppingCart[0].item_id
+
          $.ajax({
            url: "/finalItems",
            method: "POST",
@@ -296,7 +295,6 @@ $( document ).ready(function() {
         })
 
       });
-
 
       $.ajax({
         url: "/finalOrders",
@@ -323,12 +321,10 @@ $( document ).ready(function() {
   });
 
   $(document).on("click", ".btn.btn-secondary1", function(){
+    if ($("#quantity").val() > 1 ) {
     let orderValue = Number($("#quantity").val()) - 1
-
-  $(document).on("click", ".btn.btn-secondary1", function(){
-    let orderValue = Number($("#quantity").val()) - 1
-
     $("#quantity").val(orderValue)
+    }
   });
 
   $(document).on("click", ".btn.btn-secondary2", function(){
@@ -336,10 +332,6 @@ $( document ).ready(function() {
 
     $("#quantity").val(orderValue)
   });
-
-  // $(document).on("click", ".btn.btn-dark", function(){
-  //   console.log("test")
-  // });
 
   //scroll left
   $(document).on("click", ".far.fa-arrow-alt-circle-left", function(){
@@ -349,6 +341,7 @@ $( document ).ready(function() {
   //scroll right
   $(document).on("click", ".far.fa-arrow-alt-circle-right", function(){
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
+
   })
-})
 });
+
