@@ -1,26 +1,29 @@
 .menu {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
 .menu-listed-items {
+
+
   cursor: pointer;
   display: flex;
   flex-direction: row;
   padding: 1em;
-  width: 500px;
-  height: 300px;
+  width: 800px;
+  height: 200px;
   overflow-y: auto;
   overflow-x: scroll;
-
-
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.menuItem {
-
-  margin-top: 34px;
+.menuItems {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 20px;
+  margin-top: 24px;
   margin-bottom: 34px;
   align-items: center;
   flex-direction: column;
@@ -35,4 +38,61 @@ btn.btn-secondary{
   flex-direction: row;
 }
 
+.menuItem {
+  height: 420px;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 20px;
+  margin-top: 34px;
+  margin-bottom: 34px;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+
+
+.far.fa-arrow-alt-circle-left {
+  padding-right: 24px;
+  font-size: 24px;
+}
+
+.far.fa-arrow-alt-circle-right {
+  padding-left: 24px;
+  font-size: 24px;
+
+}
+
+.far.fa-arrow-alt-circle-left:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+.far.fa-arrow-alt-circle-right:hover{
+  color: blue;
+  cursor: pointer;
+}
+
+.menu-text {
+  display: flex;
+  text-align: center;
+  padding-bottom: 24px;
+  padding-top: 24px;
+}
+
+.image{
+  padding-top: 24px;
+  size: 300px;
+  height: 300px;
+  width: 300px;
+}
+
+#add-to-cart {
+margin-top: 12px;
+}
+
+#btn-group {
+
+}
 
