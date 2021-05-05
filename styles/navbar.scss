@@ -165,4 +165,13 @@ fieldset {
   padding: 12px 16px;
 }
 
+.userInfo{
+  display: flex;
+  flex-direction:column;
+}
+.editInfo {
+  padding: 10px 5px;
+  align-self: flex-end;
+}
+
 

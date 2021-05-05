@@ -17,11 +17,21 @@
   padding:30px 0;
   margin:10px;
   font-family:'Noto Sans KR', sans-serif;
-  font-size: 24px;
-  background-color:darkgrey;
+  font-size:24px;
+  border:1px solid black;
+  box-shadow:1px 1px 1px grey;
+  border-radius:3px;
+
+  p{
+    font-size:20px;
+    text-transform:uppercase;
+    padding: 0 7px;
+    margin: 10px 0;
+  }
 }
 
-#minutes, #seconds {
-  font-size:34px;
-  text-transform:uppercase;
+#directions iframe{
+  height:300px;
+  width:400px;
+  background-color:grey;
 }

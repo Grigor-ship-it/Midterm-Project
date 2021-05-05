@@ -214,10 +214,9 @@ $( document ).ready(function() {
           $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`)
 
         },1000);
-
-      if (countDown <= 0) {
-        clearInterval(intervalID);
-        $('#time').html(`<div> TIME FOR PICKUP </div>`)
+          if (minutes === 0 && seconds === 0) {
+          clearInterval(intervalID);
+          $('#time').html(`<div> TIME FOR PICKUP </div>`)
       }
     }
     timer();
@@ -280,8 +279,15 @@ $( document ).ready(function() {
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
 
   })
-
-
-
 });
+
+
+// });
+//   $.ajax({
+//     url: `https://www.google.com/maps/dir/?api=1&origin=${user.street}+${user.city}&destination=662+King+St+W+Toronto+ON`,
+//     method: 'GET',
+//     success: (data => {
+//       $('#directions').show()
+//     })
+//   })
 
