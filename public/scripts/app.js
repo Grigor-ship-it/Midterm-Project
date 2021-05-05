@@ -247,8 +247,12 @@ $( document ).ready(function() {
               ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
               <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
           `)
-          // Remove item from shopping cart functionality to come next push
-      }
+          // Remove item from shopping cart
+          $(`#${element.item_id}-remove-item`).on('click', function() {
+            const removeIndex = shoppingCart.indexOf(element);
+            shoppingCart.splice(removeIndex, 1);
+          })
+        }
     });
 
 
