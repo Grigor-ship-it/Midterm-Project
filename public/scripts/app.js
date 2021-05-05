@@ -3,6 +3,8 @@ $( document ).ready(function() {
 
   $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
+  $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
+  $(".logout").hide()
   $('.registerFields').append(`
   <form>
     <fieldset>
@@ -65,14 +67,11 @@ $( document ).ready(function() {
         {
 
 
-        $("#register").hide();
-        $("#login").hide();
+        $(".register").hide();
+        $(".login").hide();
         $('.loginFields').hide();
-        $(".links").hide();
-
         $('.registerFields').hide();
-        $(".navRight").append(`<div class="greeting">Hello ${data.users[0].name}</div>`)
-        $(".navRight").append(`<button type="button" class="logout">Logout</button>`)
+        $(".logout").show()
       }
       }
     })
@@ -108,8 +107,8 @@ $( document ).ready(function() {
 
     $(".greeting").hide()
     $(".logout").hide()
-    $("#login").show();
-    $("#register").show();
+    $(".login").show();
+    $(".register").show();
     $(".links").show();
 
   });
