@@ -36,8 +36,8 @@ module.exports = (db) => {
     // getting specific user order (faking it for user 1)
     db.query(`
     SELECT * FROM orders
-    JOIN user_orders ON user_orders.id = user_orders_id
-    JOIN menu_items ON user_orders.item_id = menu_items.id
+    JOIN order_items ON order_items.id = order_items_id
+    JOIN menu_items ON order_items.item_id = menu_items.id
     `)
     // JOIN items ON menu_items.id = menu_item_id;
     .then(data => {
@@ -54,8 +54,8 @@ module.exports = (db) => {
   router.get("/cart/:id", (req, res) => {
     // getting specific user order (faking it for user 1)
     db.query(`
-    SELECT * FROM user_orders
-    JOIN menu_items ON user_orders.item_id = menu_items.id
+    SELECT * FROM order_items
+    JOIN menu_items ON order_items.item_id = menu_items.id
     WHERE menu_items.id = $1
     `, [req.params.id])
     // JOIN items ON menu_items.id = menu_item_id;
