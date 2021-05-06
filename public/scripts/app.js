@@ -249,7 +249,7 @@ $( document ).ready(function() {
     timer();
   }
 })
-module.exports = timer();
+
 
   $('#shopping-cart').on("click", function(){
     $('.shopping-cart-view').empty();
