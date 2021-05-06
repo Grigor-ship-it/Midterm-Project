@@ -65,8 +65,10 @@ btn.btn-secondary{
 .individualItem {
   display:flex;
   justify-content:center;
+  color:white;
   border:1px solid black;
-  background-color:#D9D9D9;
+  background-color: #5e3602;
+  background-image: url("https://www.transparenttextures.com/patterns/tileable-wood.png");
   min-width: 40%;
   border-radius:5px;
   box-shadow:3px 3px 5px lightgrey;
@@ -107,6 +109,7 @@ btn.btn-secondary{
 }
 
 .image{
+  margin-top: 10px;
   padding-top: 24px;
   size: 300px;
   height: 300px;
@@ -164,6 +167,31 @@ btn.btn-secondary{
   justify-content: center;
 }
 
+
+@media screen and (max-width: 800px) {
+  .menu {
+    flex-direction:column;
+  }
+  .menu-listed-items {
+    order: -1
+  }
+
+  .far.fa-arrow-alt-circle-left {
+    right:100px;
+    top:50px;
+  }
+
+  .far.fa-arrow-alt-circle-right {
+    left: 100px;
+    top:10px;
+  }
+}
+
+@media screen and (max-width:700) {
+  .menu-listed-items {
+    width: 400px;
+  }
+}
 
 // .leftarrow, .rightArrow {
 //   position: relative;

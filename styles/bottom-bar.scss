@@ -1,10 +1,14 @@
 .three-sections {
-  height: 500px;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content:space-evenly;
+  // height: 500px;
   width:100vw;
+  padding: 50px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color:rgb(202, 154, 154);
+  background-image:url("https://businessinedmonton.com/wp-content/uploads/2018/07/iStock-685668626WEB.jpg");
 }
 
 #time {
@@ -15,7 +19,7 @@
   height:300px;
   min-width:400px;
   padding:30px 0;
-  margin:10px;
+  margin-bottom:15px;
   font-family:'Noto Sans KR', sans-serif;
   font-size:24px;
   background-color:white;
@@ -30,12 +34,25 @@
     margin: 10px 0;
   }
   #seconds {
-    font-size: 32px;
+    font-size: 48px;
   }
+}
+
+.promo {
+  height: 300px;
+  width: 400px;
+  border-radius:3px;
+  margin-bottom:15px;
+
+
 }
 
 #directions iframe{
   height:300px;
   min-width:400px;
   background-color:grey;
+  border:none;
+  border-radius:3px;
+  margin-bottom:15px;
 }
+

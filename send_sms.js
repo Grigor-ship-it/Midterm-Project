@@ -21,6 +21,4 @@ const sendSMSnotification = function() {client.messages
   return client.messages
 }
 
-
-
-  module.exports = sendSMSnotification
+module.exports = sendSMSnotification;

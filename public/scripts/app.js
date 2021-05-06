@@ -113,13 +113,12 @@ $( document ).ready(function() {
   });
 
    $('#loginArrow').on('click',() => {
-
     if ($('.loginFields').is(':visible')) {
       $(".loginFields").hide();
     } else {
       $(".loginFields").hide().slideDown('fast');
     }
-   })
+    })
 
   $('#registerArrow').on('click',() => {
     if ($('.registerFields').is(':visible')) {
@@ -174,6 +173,7 @@ $( document ).ready(function() {
                 const item_id    = item.id;
                 const item_price = item.price;
                 const item_name  = item.name;
+
                 shoppingCart.push({
                   item_id,
                   quantity,
@@ -188,6 +188,7 @@ $( document ).ready(function() {
                 } else {
                   $("#shopping-cart-counter").hide();
                 }
+
                 if ($('.confirmation-message').is(':empty')) {
                   $('.confirmation-message').append(`<div class="alert success">
                     <span class="closebtn">&times;</span>
@@ -205,38 +206,43 @@ $( document ).ready(function() {
 
   $('body').on("click", function(event){
     let target = $(event.target)
-     if (!(target.is("#loginArrow")) && (!(target.is(".loginFields"))) && (!(target.is("#usernameL"))) && (!(target.is("#passwordL")))) {
-       $('.loginFields').hide();
-     }
+    if (!(target.is("#loginArrow")) && (!(target.is(".loginFields"))) && (!(target.is("#usernameL"))) && (!(target.is("#passwordL")))) {
+      $('.loginFields').hide();
+    }
+
     if (!(target.is(".registerFields")) && (!(target.is("#registerArrow"))) && (!(target.is("#usernameR"))) &&(!(target.is("#passwordR")))
     && (!(target.is("#email"))) && (!(target.is("#telephone"))) && (!(target.is("#allergens"))) && (!(target.is("#payment-info")))) {
-       $('.registerFields').hide();
-     }
+      $('.registerFields').hide();
+    }
+
     if (!(target.is('#add-to-cart'))) {
       $('.confirmation-message').empty();
       $('.alert.success').hide();
     }
+
     if (!(target.is(".checkout-confirmation"))&& !(target.is("#checkout"))&& !(target.is(".order-final"))) {
-    $('.checkout-confirmation').hide();
+      $('.checkout-confirmation').hide();
     }
+
     if (!(target.is("#shopping-cart"))) {
-    $('.shopping-cart-view').hide();
+      $('.shopping-cart-view').hide();
     }
+
     if (!(target.is("#user-slide-down"))) {
-    $('.userInfo').hide();
+      $('.userInfo').hide();
     }
 
   })
-
+const startTimer = () =>{
   $.ajax({
     url: '/orders/timestamp',
     method: 'GET',
     success: (data) => {
-      const timer = function() {
+      // const timer = function() {
         let timeOrdered = Date.parse(data.orders[0].order_time);
         let orderFinish = Date.parse(data.orders[0].finish_time);
         let countDown   = orderFinish - timeOrdered;
-        let minutes     = Math.floor(((countDown % (1000 * 60 * 60)) / (1000 * 60))-18);
+        let minutes     = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
         let seconds     = Math.floor((countDown % (1000 * 60)) / 1000);
 
         const intervalID = setInterval(function() {
@@ -247,18 +253,18 @@ $( document ).ready(function() {
           seconds--;
           if (seconds <= 9) {
             $('#seconds').html(`<span class='timeStyle'>${minutes}:0${seconds}</span>`);
-          } else
-          $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`);
+          } else {
+            $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`);
+          }
+
           if (minutes === 0 && seconds === 0) {
             clearInterval(intervalID);
-          $('#time').html(`<div> TIME FOR PICKUP </div>`);
-      }
+            $('#time').html(`<div> TIME FOR PICKUP </div>`);
+          }
         },1000);
     }
-    timer();
-  }
-})
-
+  });
+}
 
   $('#shopping-cart').on("click", function(){
     $('.shopping-cart-view').empty();
@@ -335,7 +341,7 @@ $( document ).ready(function() {
           method: "POST",
           data : {item_id, item_price, item_name, quantity},
           success: function() {
-
+            startTimer();
             console.log('success1');
 
           }
