@@ -1,8 +1,8 @@
 $( document ).ready(function() {
   const shoppingCart =[];
   $('.checkout-confirmation').hide();
-  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"id="loginArrow"></li>`)
-  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"id="registerArrow"></li>`)
+  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"id="loginArrow"></i></li>`)
+  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"id="registerArrow"></i></li>`)
   $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
   $(".logout").hide()
   $('.registerFields').append(`
@@ -121,7 +121,7 @@ $( document ).ready(function() {
     } else {
 
 
-      $(".loginFields").slideDown('fast');
+      $(".loginFields").hide().slideDown('fast');
     }
    })
 
