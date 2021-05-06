@@ -8,7 +8,6 @@ module.exports = (db) => {
     db.query(`
     INSERT INTO order_items (order_id, item_id, quantity, item_sum_price)
     VALUES (2, ${req.body.item_id}, ${req.body.quantity}, ${req.body.item_price * req.body.quantity})
-
     `)
     .then(data => {
       console.log("finalized");
@@ -20,8 +19,6 @@ module.exports = (db) => {
         .status(500)
         .json({ error: err.message });
     });
-
-
   });
   return router;
 };

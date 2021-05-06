@@ -120,16 +120,28 @@ nav{
         margin: 0;
         background: $color-base;
         border-radius: 2px;
+        top: 40px;
         box-shadow: 0 0 5px rgba(#000, .15);
+        min-width: 350px;
         display: none;
+
 
         >li {
           clear: both;
           list-style: none;
-          display: block;
-          padding: 0 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          padding: 10px;
           margin: 0;
           width: 100%;
+          border-style: solid;
+
+            >span {
+              display: flex;
+              flex-direction: column;
+              // justify-content: space-between;
+            }
 
           &:hover{
             background: lighten($color-accent,40);
@@ -141,7 +153,6 @@ nav{
           }
         }
       }
-
     }
   }
 }
@@ -169,4 +180,8 @@ fieldset {
   cursor: pointer;
   margin-left: 10px;
   margin-right: 50px;
+}
+
+.cart-quantity {
+  padding: 1em;
 }

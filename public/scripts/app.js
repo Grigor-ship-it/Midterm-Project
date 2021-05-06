@@ -69,25 +69,23 @@ $( document ).ready(function() {
       success: (data) => {
         if ($('#usernameL').val() === data.users[0].email && $('#passwordL').val() === data.users[0].password)
         {
-
-
-        $(".register").hide();
-        $(".login").hide();
-        $('.loginFields').hide();
-        $('.registerFields').hide();
-        $(".logout").show()
+          $(".register").hide();
+          $(".login").hide();
+          $('.loginFields').hide();
+          $('.registerFields').hide();
+          $(".logout").show();
       }
       }
     })
   });
 
   $(document).on("click", "#register", function(){
-  let email = $("#email").val()
-  let name = $("#usernameR").val()
-  let password = $("#passwordR").val()
-  let telephone = $("#telephone").val()
-  let paymentInfo =  $("#payment-info").val()
-  let allergens = $("#allergens").val()
+  let email = $("#email").val();
+  let name = $("#usernameR").val();
+  let password = $("#passwordR").val();
+  let telephone = $("#telephone").val();
+  let paymentInfo =  $("#payment-info").val();
+  let allergens = $("#allergens").val();
     $.ajax({
       url: "/register",
       method: "POST",
@@ -95,20 +93,20 @@ $( document ).ready(function() {
       success: function(res ) {
 
         $('.registerFields').hide();
-        $("#email").val("")
-        $("#usernameR").val("")
-        $("#passwordR").val("")
-        $("#telephone").val("")
-        $("#payment-info").val("")
-        $("#allergens").val("")
+        $("#email").val("");
+        $("#usernameR").val("");
+        $("#passwordR").val("");
+        $("#telephone").val("");
+        $("#payment-info").val("");
+        $("#allergens").val("");
       }
     })
   })
 
   $(document).on("click", ".logout", function(){
 
-    $(".greeting").hide()
-    $(".logout").hide()
+    $(".greeting").hide();
+    $(".logout").hide();
     $(".login").show();
     $(".register").show();
     $(".links").show();
@@ -117,9 +115,9 @@ $( document ).ready(function() {
 
   $('.login').on('click',() => {
     if ($('.loginFields').is(':visible')) {
-      $(".loginFields").hide()
+      $(".loginFields").hide();
     } else {
-      $(".loginFields").show()
+      $(".loginFields").show();
       $('.registerFields').hide();
       $(".loginFields").hide().slideDown('fast');
     }
@@ -241,9 +239,12 @@ $( document ).ready(function() {
         if (element.quantity) {
           $('.shopping-cart-view').append(`
             <li class="${element.item_id}-cart-item">
-              ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
-              <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
-          `)
+            <span>${element.quantity} x </span>
+            <span>${element.item_name} = </span>
+            <span>$${element.item_price * element.quantity}</span>
+            <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
+            `)
+            // ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
           // Remove item from shopping cart
           $(`#${element.item_id}-remove-item`).on('click', function() {
             const removeIndex = shoppingCart.indexOf(element);
@@ -251,7 +252,6 @@ $( document ).ready(function() {
           })
         }
     });
-
 
       $('.shopping-cart-view').append(`<button type="button" id="checkout" class="btn btn-dark">Checkout</button>`)
       $('#checkout').on('click', function() {
@@ -342,7 +342,6 @@ $( document ).ready(function() {
   //scroll right
   $(document).on("click", ".far.fa-arrow-alt-circle-right", function(){
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
-
   })
 });
 
