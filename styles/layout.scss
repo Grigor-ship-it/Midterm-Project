@@ -16,7 +16,7 @@ main {
 }
 
 .checkout-confirmation {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   position: fixed;
