@@ -53,6 +53,7 @@ nav{
   align-items: center;
 
   .logo{
+
     position: relative;
     float: left;
     height: 60px;
@@ -212,6 +213,7 @@ fieldset {
 }
 
 .notification {
+
   size: 50%;
   text-decoration: none;
   padding: 1em;
@@ -234,6 +236,7 @@ fieldset {
 }
 
 #shopping-cart {
+  cursor: pointer;
   transform: scale(1.5);
 }
 

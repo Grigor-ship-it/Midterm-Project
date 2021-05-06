@@ -9,7 +9,7 @@
 }
 
 .menu-listed-items {
-
+  border-radius: 0.5em;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -38,6 +38,7 @@
   padding: 0.5em;
 }
 .menuItems img {
+  border-radius: 0.5em;
   border:2px solid black;
   box-shadow: 2px 2px 2px darkgrey;
   margin:7px 0;
@@ -177,11 +178,13 @@ btn.btn-secondary{
   }
 
   .far.fa-arrow-alt-circle-left {
+    cursor: pointer;
     right:100px;
     top:50px;
   }
 
   .far.fa-arrow-alt-circle-right {
+    cursor: pointer;
     left: 100px;
     top:10px;
   }
@@ -192,22 +195,3 @@ btn.btn-secondary{
     width: 400px;
   }
 }
-
-// .leftarrow, .rightArrow {
-//   position: relative;
-//   border: 1px solid black;
-//   background-color: darkgrey;
-//   height: 200px;
-//   width: 30px;
-// }
-
-// .leftArrow {
-//   left: 30px;
-
-// }
-// .fas.fa-chevron-right, .fas.fa-chevron-left {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 180px;
-// }
