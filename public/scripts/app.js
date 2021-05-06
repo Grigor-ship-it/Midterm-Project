@@ -112,14 +112,14 @@ $( document ).ready(function() {
 
   });
 
-   $('#loginArrow').on('click',() => {
+    $('#loginArrow').on('click',() => {
     console.log("Test")
-     if ($('.loginFields').is(':visible')) {
+      if ($('.loginFields').is(':visible')) {
       $(".loginFields").hide()
     } else {
       $(".loginFields").hide().slideDown('fast');
     }
-   })
+    })
 
   $('#registerArrow').on('click',() => {
     if ($('.registerFields').is(':visible')) {
@@ -205,13 +205,13 @@ $( document ).ready(function() {
 
   $('body').on("click", function(event){
     let target = $(event.target)
-     if (!(target.is("#loginArrow")) && (!(target.is(".loginFields"))) && (!(target.is("#usernameL"))) && (!(target.is("#passwordL")))) {
-       $('.loginFields').hide()
-     }
+      if (!(target.is("#loginArrow")) && (!(target.is(".loginFields"))) && (!(target.is("#usernameL"))) && (!(target.is("#passwordL")))) {
+        $('.loginFields').hide()
+      }
     if (!(target.is(".registerFields")) && (!(target.is("#registerArrow"))) && (!(target.is("#usernameR"))) &&(!(target.is("#passwordR")))
     && (!(target.is("#email"))) && (!(target.is("#telephone"))) && (!(target.is("#allergens"))) && (!(target.is("#payment-info")))) {
-       $('.registerFields').hide()
-     }
+        $('.registerFields').hide()
+      }
     if (!(target.is('#add-to-cart'))) {
       $('.confirmation-message').empty();
       $('.alert.success').hide()
@@ -227,6 +227,8 @@ $( document ).ready(function() {
     }
 
   })
+const startTimer = () =>{
+
 
   $.ajax({
     url: '/orders/timestamp',
@@ -253,11 +255,12 @@ $( document ).ready(function() {
           if (minutes === 0 && seconds === 0) {
           clearInterval(intervalID);
           $('#time').html(`<div> TIME FOR PICKUP </div>`)
+        }
       }
+      timer();
     }
-    timer();
-  }
-})
+  })
+};
 
 
   $('#shopping-cart').on("click", function(){
@@ -336,7 +339,7 @@ $( document ).ready(function() {
           method: "POST",
           data : {item_id, item_price, item_name, quantity},
           success: function() {
-
+            startTimer();
             console.log('success1');
 
           }
@@ -391,16 +394,13 @@ $( document ).ready(function() {
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
   })
 
+  // $.ajax({
+  //   url: `https://www.google.com/maps/dir/?api=1&origin=CN+Tower+Toronto+ON&destination=662+King+St+W+Toronto+ON`,
+  //   method: 'GET',
+  //   success: (data => {
+  //     console.log(data)
+  //     $('#directions').show()
+  //   })
+  // })
 
 });
-
-
-// });
-//   $.ajax({
-//     url: `https://www.google.com/maps/dir/?api=1&origin=${user.street}+${user.city}&destination=662+King+St+W+Toronto+ON`,
-//     method: 'GET',
-//     success: (data => {
-//       $('#directions').show()
-//     })
-//   })
-
