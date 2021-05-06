@@ -1,12 +1,12 @@
 $( document ).ready(function() {
   const shoppingCart =[];
   $('.checkout-confirmation').hide();
-  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
-  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
+  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"id="loginArrow"></li>`)
+  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"id="registerArrow"></li>`)
   $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
   $(".logout").hide()
   $('.registerFields').append(`
-  <form>
+  <form class="reg">
     <fieldset>
       <input type="text" id="usernameR" placeholder="Name" />
       <input type="password" id="passwordR" placeholder="Password" />
@@ -114,22 +114,23 @@ $( document ).ready(function() {
 
   });
 
-  $('.login').on('click',() => {
-    if ($('.loginFields').is(':visible')) {
-      $(".loginFields").hide()
+   $('#loginArrow').on('click',() => {
+    console.log("Test")
+     if ($('.loginFields').is(':visible')) {
+     $(".loginFields").hide()
     } else {
-      $(".loginFields").show()
-      $('.registerFields').hide();
-      $(".loginFields").hide().slideDown('fast');
-    }
-  })
 
-  $('.register').on('click',() => {
+
+      $(".loginFields").slideDown('fast');
+    }
+   })
+
+  $('#registerArrow').on('click',() => {
     if ($('.registerFields').is(':visible')) {
       $(".registerFields").hide()
     } else {
-      $('.loginFields').hide();
-      $('.registerFields').hide().slideDown('fast');
+
+      $('.registerFields').hide().slideDown();
     }
   })
 
@@ -184,10 +185,12 @@ $( document ).ready(function() {
                   item_name
 
                 });
+                if ($('.confirmation-message').is(':empty')) {
               $('.confirmation-message').append(`<div class="alert success">
               <span class="closebtn">&times;</span>
-              <strong>Success!</strong> Added item(s) into cart.
+              <strong>Success!</strong> Added ${quantity}X ${item.name} into cart.
               </div>`)
+                }
               });
             }
           })
@@ -198,14 +201,16 @@ $( document ).ready(function() {
 
   $('body').on("click", function(event){
     let target = $(event.target)
-    if (!(target.is(".login"))) {
-      $('.loginFields').hide()
-    }
-    if (!(target.is(".register"))) {
-      $('.registerFields').hide()
-    }
+     if (!(target.is("#loginArrow")) && (!(target.is(".loginFields"))) && (!(target.is("#usernameL"))) && (!(target.is("#passwordL")))) {
+       $('.loginFields').hide()
+     }
+    if (!(target.is(".registerFields")) && (!(target.is("#registerArrow"))) && (!(target.is("#usernameR"))) &&(!(target.is("#passwordR")))
+    && (!(target.is("#email"))) && (!(target.is("#telephone"))) && (!(target.is("#allergens"))) && (!(target.is("#payment-info")))) {
+       $('.registerFields').hide()
+     }
     if (!(target.is('#add-to-cart'))) {
-    $('.alert.success').hide()
+      $('.confirmation-message').empty();
+      $('.alert.success').hide()
     }
     if (!(target.is(".checkout-confirmation"))&& !(target.is("#checkout"))) {
     $('.checkout-confirmation').hide()
