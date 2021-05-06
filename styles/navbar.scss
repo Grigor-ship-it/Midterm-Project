@@ -158,7 +158,7 @@ nav{
           padding: 10px;
           margin: 0;
           width: 100%;
-          border-style: solid;
+          border-style: groove;
 
             >span {
               display: flex;
@@ -201,7 +201,7 @@ fieldset {
   right:15px;
 }
 
-.userInfo, .shopping-cart-view {
+.userInfo {
   display:block;
   position: absolute;
   top: 3em;
@@ -211,13 +211,47 @@ fieldset {
   padding: 12px 16px;
 }
 
-#shopping-cart.fas.fa-shopping-bag {
-  color: red;
+.notification {
+  size: 50%;
+  text-decoration: none;
+  padding: 1em;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+  z-index: 500;
+}
+
+.cart-counter{
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  transform: scale(0.8);
+}
+
+#shopping-cart {
+  transform: scale(1.5);
+}
+
+.shopping-cart-view {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 3em;
+  background-color: #f9f9f9;
+  min-width: 325px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+
 }
 
 .shopping-cart-view li {
   min-width:300px;
   margin:0;
+
 }
 
 .userInfo{
@@ -233,4 +267,8 @@ fieldset {
 
 .cart-quantity {
   padding: 1em;
+}
+
+#shopping-cart-counter {
+  size: 0.5em;
 }

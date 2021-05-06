@@ -171,21 +171,29 @@ $( document ).ready(function() {
               $('#add-to-cart').on("click", function(){
 
                 let quantity = $('#quantity').val();
-                const item_id = item.id
-                const item_price = item.price
-                const item_name = item.name
-                shoppingCart.push({
-                  item_id,
-                  quantity,
-                  item_price,
-                  item_name
+                const item_id = item.id;
+                const item_price = item.price;
+                const item_name = item.name;
+                  shoppingCart.push({
+                    item_id,
+                    quantity,
+                    item_price,
+                    item_name
+                  });
 
-                });
+                if (shoppingCart.length) {
+                  $('.notification').append(`
+                  <span class="cart-counter">${shoppingCart.length}</span>
+                  `)
+                } else {
+                  $("#shopping-cart-counter").hide()
+                }
                 if ($('.confirmation-message').is(':empty')) {
-              $('.confirmation-message').append(`<div class="alert success">
-              <span class="closebtn">&times;</span>
-              <strong>Success!</strong> Added ${quantity}X ${item.name} into cart.
-              </div>`)
+                  $('.confirmation-message').append(`<div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Success!</strong> Added ${quantity}X ${item.name} into cart.
+                    </div>
+                  `)
                 }
               });
             }
@@ -278,8 +286,16 @@ $( document ).ready(function() {
             // ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
           // Remove item from shopping cart
           $(`#${element.item_id}-remove-item`).on('click', function() {
+
             const removeIndex = shoppingCart.indexOf(element);
             shoppingCart.splice(removeIndex, 1);
+
+            $(".cart-counter").remove();
+            if (shoppingCart.length) {
+              $('.notification').append(`
+                  <span class="cart-counter">${shoppingCart.length}</span>
+                  `)
+            }
           })
         }
     });
