@@ -4,7 +4,8 @@ $( document ).ready(function() {
   $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"id="loginArrow"></i></li>`)
   $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"id="registerArrow"></i></li>`)
   $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
-  $(".logout").hide()
+  $(".logout").hide();
+
   $('.registerFields').append(`
   <form class="reg">
     <fieldset>
@@ -17,7 +18,8 @@ $( document ).ready(function() {
       <button id="register" type="submit">Register</button>
     </fieldset>
   </form>
-  `)
+  `);
+
   $('.loginFields').append(`
   <form>
     <fieldset>
@@ -26,20 +28,19 @@ $( document ).ready(function() {
       <button id="login" type="button">Login</button>
     </fieldset>
   </form>
+  `);
 
-  `)
-
-  $(".registerFields").hide()
-  $(".loginFields").hide()
+  $(".registerFields").hide();
+  $(".loginFields").hide();
 
   $("#menuItemsButton").click(function() {
     $.ajax({
       url: "/menu",
       method: "GET",
       success: (data) => {
-        let menuItems = data.menuItems
+        let menuItems = data.menuItems;
         menuItems.forEach(item => {
-          $(".menu-listed-items").append(`<div class="menu-item">${item.name}</div>`)
+          $(".menu-listed-items").append(`<div class="menu-item">${item.name}</div>`);
         })
       }
     })
@@ -51,11 +52,11 @@ $( document ).ready(function() {
       method: "GET",
       success: (data) => {
         let users = data.users[0];
-        $(".userInfo").empty()
-        $(".userInfo").append(`<h5>name</h5><li><a href='#'>${users.name}</a></li>`)
-        $(".userInfo").append(`<h5>email</h5><li><a href='#'>${users.email}</a></li>`)
-        $(".userInfo").append(`<h5>favourite</h5><li><a href='#'>${users.favourites}</a></li>`)
-        $(".userInfo").append(`<h5>allergens</h5><li><a href='#'>${users.allergens}</a></li>`)
+        $(".userInfo").empty();
+        $(".userInfo").append(`<h5>name</h5><li><a href='#'>${users.name}</a></li>`);
+        $(".userInfo").append(`<h5>email</h5><li><a href='#'>${users.email}</a></li>`);
+        $(".userInfo").append(`<h5>favourite</h5><li><a href='#'>${users.favourites}</a></li>`);
+        $(".userInfo").append(`<h5>allergens</h5><li><a href='#'>${users.allergens}</a></li>`);
         $('.userInfo').toggle('fast');
       }
     })
@@ -66,14 +67,13 @@ $( document ).ready(function() {
       url: '/users',
       method: 'GET',
       success: (data) => {
-        if ($('#usernameL').val() === data.users[0].email && $('#passwordL').val() === data.users[0].password)
-        {
+        if ($('#usernameL').val() === data.users[0].email && $('#passwordL').val() === data.users[0].password) {
           $(".register").hide();
           $(".login").hide();
           $('.loginFields').hide();
           $('.registerFields').hide();
           $(".logout").show();
-      }
+        }
       }
     })
   });
@@ -113,9 +113,9 @@ $( document ).ready(function() {
   });
 
    $('#loginArrow').on('click',() => {
-    console.log("Test")
-     if ($('.loginFields').is(':visible')) {
-      $(".loginFields").hide()
+
+    if ($('.loginFields').is(':visible')) {
+      $(".loginFields").hide();
     } else {
       $(".loginFields").hide().slideDown('fast');
     }
@@ -123,7 +123,7 @@ $( document ).ready(function() {
 
   $('#registerArrow').on('click',() => {
     if ($('.registerFields').is(':visible')) {
-      $(".registerFields").hide()
+      $(".registerFields").hide();
     } else {
 
       $('.registerFields').hide().slideDown();
@@ -139,7 +139,7 @@ $( document ).ready(function() {
         $(".menu-listed-items").append(`
         <div id="${item.id}" class="menuItems"> <img src=${item.display_image} style="width:200px;height:160px;"/>${item.name}
         </div>
-        `)
+        `);
         $(`#${item.id}`).click(function(event) {
           $.ajax({
             url: `/menuItem/${item.id}`,
@@ -147,7 +147,7 @@ $( document ).ready(function() {
             success: (data) => {
               if ($(".individualItem").children().length){
 
-              $(".individualItem").empty()
+              $(".individualItem").empty();
               }
 
               $(".individualItem").append(`
@@ -165,35 +165,35 @@ $( document ).ready(function() {
                 </div>
                 <button type="button" id="add-to-cart" class="btn btn-dark">Add to cart</button>
               </div>
-              `)
+              `);
 
               // temporary cart storage until order is finalized in checkout
               $('#add-to-cart').on("click", function(){
 
-                let quantity = $('#quantity').val();
-                const item_id = item.id;
+                let quantity     = $('#quantity').val();
+                const item_id    = item.id;
                 const item_price = item.price;
-                const item_name = item.name;
-                  shoppingCart.push({
-                    item_id,
-                    quantity,
-                    item_price,
-                    item_name
-                  });
+                const item_name  = item.name;
+                shoppingCart.push({
+                  item_id,
+                  quantity,
+                  item_price,
+                  item_name
+                });
 
                 if (shoppingCart.length) {
                   $('.notification').append(`
                   <span class="cart-counter">${shoppingCart.length}</span>
-                  `)
+                  `);
                 } else {
-                  $("#shopping-cart-counter").hide()
+                  $("#shopping-cart-counter").hide();
                 }
                 if ($('.confirmation-message').is(':empty')) {
                   $('.confirmation-message').append(`<div class="alert success">
                     <span class="closebtn">&times;</span>
                     <strong>Success!</strong> Added ${quantity}X ${item.name} into cart.
                     </div>
-                  `)
+                  `);
                 }
               });
             }
@@ -206,24 +206,24 @@ $( document ).ready(function() {
   $('body').on("click", function(event){
     let target = $(event.target)
      if (!(target.is("#loginArrow")) && (!(target.is(".loginFields"))) && (!(target.is("#usernameL"))) && (!(target.is("#passwordL")))) {
-       $('.loginFields').hide()
+       $('.loginFields').hide();
      }
     if (!(target.is(".registerFields")) && (!(target.is("#registerArrow"))) && (!(target.is("#usernameR"))) &&(!(target.is("#passwordR")))
     && (!(target.is("#email"))) && (!(target.is("#telephone"))) && (!(target.is("#allergens"))) && (!(target.is("#payment-info")))) {
-       $('.registerFields').hide()
+       $('.registerFields').hide();
      }
     if (!(target.is('#add-to-cart'))) {
       $('.confirmation-message').empty();
-      $('.alert.success').hide()
+      $('.alert.success').hide();
     }
-    if (!(target.is(".checkout-confirmation"))&& !(target.is("#checkout"))) {
-    $('.checkout-confirmation').hide()
+    if (!(target.is(".checkout-confirmation"))&& !(target.is("#checkout"))&& !(target.is(".order-final"))) {
+    $('.checkout-confirmation').hide();
     }
     if (!(target.is("#shopping-cart"))) {
-    $('.shopping-cart-view').hide()
+    $('.shopping-cart-view').hide();
     }
     if (!(target.is("#user-slide-down"))) {
-    $('.userInfo').hide()
+    $('.userInfo').hide();
     }
 
   })
@@ -235,9 +235,9 @@ $( document ).ready(function() {
       const timer = function() {
         let timeOrdered = Date.parse(data.orders[0].order_time);
         let orderFinish = Date.parse(data.orders[0].finish_time);
-        let countDown = orderFinish - timeOrdered;
-        let minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((countDown % (1000 * 60)) / 1000);
+        let countDown   = orderFinish - timeOrdered;
+        let minutes     = Math.floor(((countDown % (1000 * 60 * 60)) / (1000 * 60))-18);
+        let seconds     = Math.floor((countDown % (1000 * 60)) / 1000);
 
         const intervalID = setInterval(function() {
           if (seconds <= 0) {
@@ -246,14 +246,14 @@ $( document ).ready(function() {
           }
           seconds--;
           if (seconds <= 9) {
-            $('#seconds').html(`<span class='timeStyle'>${minutes}:0${seconds}</span>`)
+            $('#seconds').html(`<span class='timeStyle'>${minutes}:0${seconds}</span>`);
           } else
-          $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`)
-        },1000);
+          $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`);
           if (minutes === 0 && seconds === 0) {
-          clearInterval(intervalID);
-          $('#time').html(`<div> TIME FOR PICKUP </div>`)
+            clearInterval(intervalID);
+          $('#time').html(`<div> TIME FOR PICKUP </div>`);
       }
+        },1000);
     }
     timer();
   }
@@ -270,7 +270,7 @@ $( document ).ready(function() {
       let tax = 0;
       let checkoutTotal = 0;
       $('.checkout-confirmation').append(`
-      <h4 class="checkout-title">Order confirmation</h4>
+      <h2 class="checkout-title">Order confirmation</h2>
     `);
       shoppingCart.forEach(element => {
 
@@ -282,9 +282,8 @@ $( document ).ready(function() {
             <span>${element.item_name} = </span>
             <span>$${element.item_price * element.quantity}</span>
             <i id="${element.item_id}-remove-item"class="fas fa-times"></i>
-            `)
-            // ${element.quantity} x ${element.item_name} = $${element.item_price * element.quantity}
-          // Remove item from shopping cart
+          `);
+
           $(`#${element.item_id}-remove-item`).on('click', function() {
 
             const removeIndex = shoppingCart.indexOf(element);
@@ -294,7 +293,7 @@ $( document ).ready(function() {
             if (shoppingCart.length) {
               $('.notification').append(`
                   <span class="cart-counter">${shoppingCart.length}</span>
-                  `)
+              `);
             }
           })
         }
@@ -324,12 +323,12 @@ $( document ).ready(function() {
       `);
 
       $('.order-final').on("click", function(event) {
-        console.log(shoppingCart);
+
         let quantity = $('#quantity').val();
         shoppingCart.forEach(element => {
-          const item_id = element.item_id
-          const item_price = element.item_price
-          const item_name = element.item_name
+          const item_id = element.item_id;
+          const item_price = element.item_price;
+          const item_name = element.item_name;
 
         $.ajax({
           url: "/finalItems",
@@ -349,12 +348,17 @@ $( document ).ready(function() {
         method: "POST",
         success: function() {
 
-        console.log('success2');
+          console.log('success2');
         shoppingCart.length = 0;
       }
     })
-      $('.checkout-confirmation').hide();
-      });
+    $('.cart-counter').hide();
+    $('.checkout-confrmation').empty();
+    $('.checkout-confirmation').append(`
+    <h2>Thank you for your order! Your order has been placed!</h2>
+    `);
+
+    });
     } else {
       $('.shopping-cart-view').append(`
         <p class="cart-quantity">Please add items to your cart first!</p>
@@ -370,15 +374,15 @@ $( document ).ready(function() {
 
   $(document).on("click", ".btn.btn-secondary1", function(){
     if ($("#quantity").val() > 1 ) {
-    let orderValue = Number($("#quantity").val()) - 1
-    $("#quantity").val(orderValue)
+    let orderValue = Number($("#quantity").val()) - 1;
+    $("#quantity").val(orderValue);
     }
   });
 
   $(document).on("click", ".btn.btn-secondary2", function(){
     let orderValue = Number($("#quantity").val()) + 1
 
-    $("#quantity").val(orderValue)
+    $("#quantity").val(orderValue);
   });
 
   //scroll left
@@ -391,16 +395,5 @@ $( document ).ready(function() {
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
   })
 
-
 });
-
-
-// });
-//   $.ajax({
-//     url: `https://www.google.com/maps/dir/?api=1&origin=${user.street}+${user.city}&destination=662+King+St+W+Toronto+ON`,
-//     method: 'GET',
-//     success: (data => {
-//       $('#directions').show()
-//     })
-//   })
 
