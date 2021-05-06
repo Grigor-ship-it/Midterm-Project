@@ -7,7 +7,7 @@ CREATE TABLE users (
   telephone VARCHAR(35) NOT NULL,
   favourites BOOLEAN DEFAULT FALSE,
   allergens VARCHAR(255),
-  payment_info INTEGER DEFAULT NULL,
+  payment_info BIGINT DEFAULT NULL,
   city VARCHAR(35),
   street VARCHAR(35),
   province VARCHAR(35),

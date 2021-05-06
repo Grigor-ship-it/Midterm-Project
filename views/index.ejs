@@ -9,6 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
     <!-- Style Sheets -->
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
@@ -19,6 +20,8 @@
     <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
     <link rel="stylesheet" href="/styles/bottom-bar.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
 
     <!-- Scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -33,7 +36,9 @@
         <ul class="linksL">
           <li>
             <i id="user-slide-down" class="fas fa-bars"></i>
-            <ul class='userInfo'></ul>
+            <ul class='userInfo'>
+              <div class="editInfo">User Information</div>
+            </ul>
           </li>
           <li class="shopping-cart dropdown">
             <i id="shopping-cart" class="fas fa-shopping-bag"></i>
@@ -46,7 +51,6 @@
       </div>
       <div class="navRight">
         <ul class="links">
-
           <ul class="loginFields"></ul>
           <ul class="registerFields"></ul>
         </ul>
@@ -59,19 +63,34 @@
     <main class="main">
       <section class="menu">
         <i class="far fa-arrow-alt-circle-left"></i>
+
+        <!-- <div class="leftArrow">
+          <i class="fas fa-chevron-left"></i>
+        </div> -->
+
         <div class="menu-listed-items">
         </div>
         <i class="far fa-arrow-alt-circle-right"></i>
+
+        <!-- <div class="rightArrow">
+          <i class="fas fa-chevron-right"></i>
+        </div> -->
+
       </section>
       <section class="individualItem"></section>
+      <div class="confirmation-message"></div>
       <div class="three-sections">
         <section id="time">
+          <p>Time until pickup</p>
           <div id="hours"></div>
           <div id="minutes"></div>
           <div id="seconds"></div>
         </section>
-        <section class="promotions">promotions</section>
-        <section class="info">INFO</section>
+        <section class="promotions"></section>
+        <img src="https://e.linenchest.com/fit-in/1200x1200/images/misc/rebates/10OFF_EN_2019.png" style="width:400px;height:300px;">
+        <section class="info">
+          <div id="directions"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11791.39372205063!2d-79.40218776863318!3d43.64436945570818!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d97247bbc3%3A0xbc1d36bccb4b45ba!2sLighthouse%20Labs!5e0!3m2!1sen!2sca!4v1620230705083!5m2!1sen!2sca"loading="lazy"></iframe></div>
+        </section>
       </div>
 
     </main>

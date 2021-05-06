@@ -9,11 +9,14 @@ body {
 }
 
 main {
-  height: 100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height: 118vh;
 }
 
 .checkout-confirmation {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   position: fixed;

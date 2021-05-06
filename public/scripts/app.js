@@ -1,13 +1,12 @@
 $( document ).ready(function() {
   const shoppingCart =[];
   $('.checkout-confirmation').hide();
-
-  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"></i></li>`)
-  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"></i></li>`)
+  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"id="loginArrow"></i></li>`)
+  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"id="registerArrow"></i></li>`)
   $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
   $(".logout").hide()
   $('.registerFields').append(`
-  <form>
+  <form class="reg">
     <fieldset>
       <input type="text" id="usernameR" placeholder="Name" />
       <input type="password" id="passwordR" placeholder="Password" />
@@ -51,12 +50,12 @@ $( document ).ready(function() {
       url: "/users",
       method: "GET",
       success: (data) => {
-        let users = data.users[1];
-        $('.userInfo').empty();
-        $(".userInfo").append(`<li><a href='#'>${users.name}</a></li>`)
-        $(".userInfo").append(`<li><a href='#'>${users.email}</a></li>`)
-        $(".userInfo").append(`<li><a href='#'>${users.favourites}</a></li>`)
-        $(".userInfo").append(`<li><a href='#'>${users.allergens}</a></li>`)
+        let users = data.users[0];
+        $(".userInfo").empty()
+        $(".userInfo").append(`<h5>name</h5><li><a href='#'>${users.name}</a></li>`)
+        $(".userInfo").append(`<h5>email</h5><li><a href='#'>${users.email}</a></li>`)
+        $(".userInfo").append(`<h5>favourite</h5><li><a href='#'>${users.favourites}</a></li>`)
+        $(".userInfo").append(`<h5>allergens</h5><li><a href='#'>${users.allergens}</a></li>`)
         $('.userInfo').toggle('fast');
       }
     })
@@ -113,22 +112,21 @@ $( document ).ready(function() {
 
   });
 
-  $('.login').on('click',() => {
-    if ($('.loginFields').is(':visible')) {
-      $(".loginFields").hide();
+   $('#loginArrow').on('click',() => {
+    console.log("Test")
+     if ($('.loginFields').is(':visible')) {
+      $(".loginFields").hide()
     } else {
-      $(".loginFields").show();
-      $('.registerFields').hide();
       $(".loginFields").hide().slideDown('fast');
     }
-  })
+   })
 
-  $('.register').on('click',() => {
+  $('#registerArrow').on('click',() => {
     if ($('.registerFields').is(':visible')) {
       $(".registerFields").hide()
     } else {
-      $('.loginFields').hide();
-      $('.registerFields').hide().slideDown('fast');
+
+      $('.registerFields').hide().slideDown();
     }
   })
 
@@ -181,13 +179,45 @@ $( document ).ready(function() {
                   quantity,
                   item_price,
                   item_name
+
                 });
+                if ($('.confirmation-message').is(':empty')) {
+              $('.confirmation-message').append(`<div class="alert success">
+              <span class="closebtn">&times;</span>
+              <strong>Success!</strong> Added ${quantity}X ${item.name} into cart.
+              </div>`)
+                }
               });
             }
           })
         })
       })
     }
+  })
+
+  $('body').on("click", function(event){
+    let target = $(event.target)
+     if (!(target.is("#loginArrow")) && (!(target.is(".loginFields"))) && (!(target.is("#usernameL"))) && (!(target.is("#passwordL")))) {
+       $('.loginFields').hide()
+     }
+    if (!(target.is(".registerFields")) && (!(target.is("#registerArrow"))) && (!(target.is("#usernameR"))) &&(!(target.is("#passwordR")))
+    && (!(target.is("#email"))) && (!(target.is("#telephone"))) && (!(target.is("#allergens"))) && (!(target.is("#payment-info")))) {
+       $('.registerFields').hide()
+     }
+    if (!(target.is('#add-to-cart'))) {
+      $('.confirmation-message').empty();
+      $('.alert.success').hide()
+    }
+    if (!(target.is(".checkout-confirmation"))&& !(target.is("#checkout"))) {
+    $('.checkout-confirmation').hide()
+    }
+    if (!(target.is("#shopping-cart"))) {
+    $('.shopping-cart-view').hide()
+    }
+    if (!(target.is("#user-slide-down"))) {
+    $('.userInfo').hide()
+    }
+
   })
 
   $.ajax({
@@ -202,24 +232,25 @@ $( document ).ready(function() {
         let seconds = Math.floor((countDown % (1000 * 60)) / 1000);
 
         const intervalID = setInterval(function() {
-        if (seconds <= 0) {
-          minutes --;
-          seconds = 60
-          $('#minutes').html(`${minutes} minutes`)
-        }
-        seconds --;
-        $('#seconds').html(`${seconds} seconds`)
-
+          if (seconds <= 0) {
+            minutes --;
+            seconds = 60
+          }
+          seconds--;
+          if (seconds <= 9) {
+            $('#seconds').html(`<span class='timeStyle'>${minutes}:0${seconds}</span>`)
+          } else
+          $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`)
         },1000);
-
-      if (countDown <= 0) {
-        clearInterval(intervalID);
-        $('#time').html(`<div> TIME FOR PICKUP </div>`)
+          if (minutes === 0 && seconds === 0) {
+          clearInterval(intervalID);
+          $('#time').html(`<div> TIME FOR PICKUP </div>`)
       }
     }
     timer();
   }
-  })
+})
+
 
   $('#shopping-cart').on("click", function(){
     $('.shopping-cart-view').empty();
@@ -284,9 +315,9 @@ $( document ).ready(function() {
           const item_price = element.item_price
           const item_name = element.item_name
 
-         $.ajax({
-           url: "/finalItems",
-           method: "POST",
+        $.ajax({
+          url: "/finalItems",
+          method: "POST",
           data : {item_id, item_price, item_name, quantity},
           success: function() {
 
@@ -300,12 +331,12 @@ $( document ).ready(function() {
       $.ajax({
         url: "/finalOrders",
         method: "POST",
-       success: function() {
+        success: function() {
 
-         console.log('success2');
-         shoppingCart.length = 0;
-       }
-     })
+        console.log('success2');
+        shoppingCart.length = 0;
+      }
+    })
       $('.checkout-confirmation').hide();
       });
     } else {
@@ -343,5 +374,17 @@ $( document ).ready(function() {
   $(document).on("click", ".far.fa-arrow-alt-circle-right", function(){
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
   })
+
+
 });
+
+
+// });
+//   $.ajax({
+//     url: `https://www.google.com/maps/dir/?api=1&origin=${user.street}+${user.city}&destination=662+King+St+W+Toronto+ON`,
+//     method: 'GET',
+//     success: (data => {
+//       $('#directions').show()
+//     })
+//   })
 

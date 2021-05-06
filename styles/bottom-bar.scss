@@ -1,7 +1,41 @@
 .three-sections {
-  height: 5em;
+  height: 500px;
+  width:100vw;
   display: flex;
   justify-content: space-around;
-  /* border-style: solid;
-  border-color: black; */
+  align-items: center;
+  background-color:rgb(202, 154, 154);
+}
+
+#time {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  align-items:center;
+  height:300px;
+  min-width:400px;
+  padding:30px 0;
+  margin:10px;
+  font-family:'Noto Sans KR', sans-serif;
+  font-size:24px;
+  background-color:white;
+  border:1px solid black;
+  box-shadow:1px 1px 1px grey;
+  border-radius:3px;
+
+  p{
+    font-size:32px;
+    text-transform:uppercase;
+    padding: 0 7px;
+    margin: 10px 0;
+  }
+  #seconds {
+    font-size: 32px;
+  }
+}
+
+#directions iframe{
+  height:300px;
+  min-width:400px;
+  background-color:grey;
 }
