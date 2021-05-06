@@ -1,37 +1,41 @@
 .three-sections {
   height: 500px;
+  width:100vw;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* border-style: solid;
-  border-color: black; */
+  background-color:rgb(202, 154, 154);
 }
 
 #time {
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:space-evenly;
   align-items:center;
-  height:150px;
-  width:200px;
+  height:300px;
+  min-width:400px;
   padding:30px 0;
   margin:10px;
   font-family:'Noto Sans KR', sans-serif;
   font-size:24px;
+  background-color:white;
   border:1px solid black;
   box-shadow:1px 1px 1px grey;
   border-radius:3px;
 
   p{
-    font-size:20px;
+    font-size:32px;
     text-transform:uppercase;
     padding: 0 7px;
     margin: 10px 0;
+  }
+  #seconds {
+    font-size: 32px;
   }
 }
 
 #directions iframe{
   height:300px;
-  width:400px;
+  min-width:400px;
   background-color:grey;
 }

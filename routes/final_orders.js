@@ -16,6 +16,7 @@ module.exports = (db) => {
       res.status(201).json({message: "final order"})
     })
     .then(data => {sendSMSnotification()})
+
     .catch(err => {
       res
         .status(500)

@@ -183,7 +183,12 @@ $( document ).ready(function() {
                   quantity,
                   item_price,
                   item_name
+
                 });
+                $('.confirmation-message').append(`<div class="alert success">
+              <span class="closebtn">&times;</span>
+              <strong>Success!</strong> Added item(s) into cart.
+              </div>`)
               });
             }
           })
@@ -221,7 +226,8 @@ $( document ).ready(function() {
     }
     timer();
   }
-  })
+})
+module.exports = timer();
 
   $('#shopping-cart').on("click", function(){
     $('.shopping-cart-view').empty();
