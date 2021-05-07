@@ -249,7 +249,7 @@ $( document ).ready(function() {
 
       });
 
-      postOrders();
+      postOrders(shoppingCart);
 
     $('.cart-counter').hide();
     $('.checkout-confrmation').empty();
