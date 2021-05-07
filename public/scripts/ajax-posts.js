@@ -35,7 +35,7 @@ const postCartItems = function(item_id, item_price, item_name, quantity) {$.ajax
 })
 }
 
-const postOrders = function() {$.ajax({
+const postOrders = function(shoppingCart) {$.ajax({
   url: "/finalOrders",
   method: "POST",
   success: function() {

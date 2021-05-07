@@ -207,7 +207,7 @@ $( document ).ready(function() {
             $(".cart-counter").remove();
             if (shoppingCart.length) {
               $('.notification').append(`
-                  <span class="cart-counter">${shoppingCart.length}</span>
+                <span class="cart-counter">${shoppingCart.length}</span>
               `);
             }
           })
@@ -238,7 +238,10 @@ $( document ).ready(function() {
       `);
 
       $('.order-final').on("click", function(event) {
-
+        $('.checkout-confirmation').empty();
+        $('.checkout-confirmation').append(`
+        <h2 class="thank-you">Thank you for your order! Your order has been placed!</h2>
+        `);
         let quantity = $('#quantity').val();
         shoppingCart.forEach(element => {
           const item_id = element.item_id;
@@ -247,15 +250,11 @@ $( document ).ready(function() {
 
           postCartItems(item_id, item_price, item_name, quantity);
 
-      });
+        });
 
-      postOrders();
+      postOrders(shoppingCart);
 
     $('.cart-counter').hide();
-    $('.checkout-confrmation').empty();
-    $('.checkout-confirmation').append(`
-    <h2>Thank you for your order! Your order has been placed!</h2>
-    `);
 
     });
     } else {
@@ -295,4 +294,3 @@ $( document ).ready(function() {
   })
 
 });
-
