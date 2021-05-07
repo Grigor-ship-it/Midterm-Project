@@ -11,8 +11,6 @@ module.exports = (db) => {
 
     `)
     .then(data => {
-      console.log("finalized")
-      console.log(data);
       res.status(201).json({message: "final order"})
     })
     .then(data => {sendSMSnotification()})

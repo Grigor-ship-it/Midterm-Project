@@ -12,7 +12,6 @@ const sendSMSnotification = function() {client.messages
      to: '+15144492722'
    })
   .then(message => {
-    console.log(message)
     return client.messages
   })
   .catch(err => {

@@ -1,11 +1,17 @@
-$( document ).ready(function() {
+$(document).ready(function() {
+  // array to hold items in the shopping cart
+  const shoppingCart = [];
 
-  const shoppingCart =[];
-  $('.checkout-confirmation').hide();
-  $(".links").append(`<li class="login">LOGIN<i class="fas fa-angle-down"id="loginArrow"></i></li>`)
-  $(".links").append(`<li class="register">REGISTER<i class="fas fa-angle-down"id="registerArrow"></i></li>`)
-  $(".links").append(`<li class="logout">LOGOUT<i class="fas fa-angle-down"></i></li>`)
-  $(".logout").hide();
+  // dynamically appending elements
+  $(".links").append(`<li class="login">LOGIN
+  <i class="fas fa-angle-down"id="loginArrow"></i>
+  </li>`);
+
+  $(".links").append(`
+  <li class="register">REGISTER
+    <i class="fas fa-angle-down"id="registerArrow"></i>
+  </li>
+  `);
 
   $('.registerFields').append(`
   <form class="reg">
@@ -21,6 +27,12 @@ $( document ).ready(function() {
   </form>
   `);
 
+  $(".links").append(`
+  <li class="logout">LOGOUT
+    <i class="fas fa-angle-down"></i>
+  </li>
+  `);
+
   $('.loginFields').append(`
   <form>
     <fieldset>
@@ -31,18 +43,25 @@ $( document ).ready(function() {
   </form>
   `);
 
+  // hide elements that need to be shown when events are triggered
+  $('.checkout-confirmation').hide();
+  $(".logout").hide();
   $(".registerFields").hide();
   $(".loginFields").hide();
 
+  // Display menu items and on click it displays indiviual items
   displayMenuItems();
 
+  // Display user profile on the top left
   displayUserInfoMenu();
 
   userLoginValidation();
 
-  postUserRegistration();
+  $("#register").on("click", function(){
+    postUserRegistration();
+  });
 
-  $(document).on("click", ".logout", function(){
+  $(".logout").on("click", function(){
 
     $(".greeting").hide();
     $(".logout").hide();
@@ -64,7 +83,6 @@ $( document ).ready(function() {
     if ($('.registerFields').is(':visible')) {
       $(".registerFields").hide();
     } else {
-
       $('.registerFields').hide().slideDown();
     }
   })
@@ -73,30 +91,33 @@ $( document ).ready(function() {
     url: "/menu",
     method: "GET",
     success: (data) => {
-      let menuItems = data.menuItems
+      const menuItems = data.menuItems;
+
       menuItems.forEach(item => {
         $(".menu-listed-items").append(`
-        <div id="${item.id}" class="menuItems"> <img src=${item.display_image} style="width:200px;height:160px;"/>${item.name}
+        <div id="${item.id}" class="menuItems">
+          <img src=${item.display_image} style="width:200px;height:160px;"/>${item.name}
         </div>
         `);
+
+        // On click of the menu listed items, a larger indiviual item is appended
         $(`#${item.id}`).click(function(event) {
           $.ajax({
             url: `/menuItem/${item.id}`,
             method: "GET",
             success: (data) => {
               if ($(".individualItem").children().length){
-
-              $(".individualItem").empty();
+                $(".individualItem").empty();
               }
 
               $(".individualItem").append(`
               <div id="${item.id}-expanded" class="menuItem"><b>${item.name}</b>
-              <img src=${item.display_image} style="width:300px;height:264px;" class="image">
-              <div class="menu-text"
-                <br>${item.price}$
-                <br>${item.description}
-                <br>${item.ingredients}
-              </div>
+                <img src=${item.display_image} style="width:300px;height:264px;" class="image">
+                <div class="menu-text"
+                  <br>$${item.price}
+                  <br>${item.description}
+                  <br>${item.ingredients}
+                </div>
                 <div class="btn-group" role="group">
                   <button type="button" class="btn btn-secondary1">-</button>
                   <input type="number" id="quantity" name="quantity" placeholder="0" value="1" min="1">
@@ -123,7 +144,7 @@ $( document ).ready(function() {
 
                 if (shoppingCart.length) {
                   $('.notification').append(`
-                  <span class="cart-counter">${shoppingCart.length}</span>
+                    <span class="cart-counter">${shoppingCart.length}</span>
                   `);
                 } else {
                   $("#shopping-cart-counter").hide();
@@ -132,7 +153,7 @@ $( document ).ready(function() {
                 if ($('.confirmation-message').is(':empty')) {
                   $('.confirmation-message').append(`<div class="alert success">
                     <span class="closebtn">&times;</span>
-                    <strong>Success!</strong> Added ${quantity}X ${item.name} into cart.
+                      <strong>Success!</strong> Added ${quantity}X ${item.name} into cart.
                     </div>
                   `);
                 }
@@ -145,7 +166,7 @@ $( document ).ready(function() {
   })
 
   $('body').on("click", function(event){
-    let target = $(event.target)
+    const target = $(event.target)
     if (!(target.is("#loginArrow")) && (!(target.is(".loginFields"))) && (!(target.is("#usernameL"))) && (!(target.is("#passwordL")))) {
       $('.loginFields').hide();
     }
@@ -181,9 +202,9 @@ $( document ).ready(function() {
 
     if (shoppingCart.length !== 0) {
       // for each item added to the shopping cart
-      let subTotal = 0;
-      let tax = 0;
       let checkoutTotal = 0;
+      let subTotal      = 0;
+      let tax           = 0;
       $('.checkout-confirmation').append(`
       <h2 class="checkout-title">Order confirmation</h2>
     `);
@@ -219,9 +240,8 @@ $( document ).ready(function() {
         $('.checkout-confirmation').show();
       });
       // rounding to 2 decimal places
-      tax = subTotal * 0.13;
-      tax = Number(tax.toFixed(2));
-
+      tax           = subTotal * 0.13;
+      tax           = Number(tax.toFixed(2));
       checkoutTotal = subTotal + tax;
 
       $('.checkout-confirmation').append(`
@@ -231,6 +251,7 @@ $( document ).ready(function() {
           <p class="order-total">Order Total =  $${checkoutTotal}</p>
         </div>
       `);
+
       $('.checkout-confirmation').append(`
         <button class="order-final">
           ORDER NOW
@@ -244,14 +265,16 @@ $( document ).ready(function() {
         `);
         let quantity = $('#quantity').val();
         shoppingCart.forEach(element => {
-          const item_id = element.item_id;
+          const item_id    = element.item_id;
           const item_price = element.item_price;
-          const item_name = element.item_name;
+          const item_name  = element.item_name;
 
+          // Add indiviual items inside order DB
           postCartItems(item_id, item_price, item_name, quantity);
 
         });
 
+      // Add Orders to DB
       postOrders(shoppingCart);
 
     $('.cart-counter').hide();
@@ -260,36 +283,38 @@ $( document ).ready(function() {
     } else {
       $('.shopping-cart-view').append(`
         <p class="cart-quantity">Please add items to your cart first!</p>
-      `)
+      `);
     }
 
     if ($('.shopping-cart-view').is(':visible')) {
-      $(".shopping-cart-view").hide()
+      $(".shopping-cart-view").hide();
     } else {
       $('.shopping-cart-view').hide().slideDown();
     }
   });
 
-  $(document).on("click", ".btn.btn-secondary1", function(){
+  $(".btn.btn-secondary1").on("click", function(){
+
     if ($("#quantity").val() > 1 ) {
-    let orderValue = Number($("#quantity").val()) - 1;
-    $("#quantity").val(orderValue);
+      let orderValue = Number($("#quantity").val()) - 1;
+      $("#quantity").val(orderValue);
     }
+
   });
 
-  $(document).on("click", ".btn.btn-secondary2", function(){
-    let orderValue = Number($("#quantity").val()) + 1
+  $(".btn.btn-secondary2").on("click", function(){
+    let orderValue = Number($("#quantity").val()) + 1;
 
     $("#quantity").val(orderValue);
   });
 
   //scroll left
-  $(document).on("click", ".far.fa-arrow-alt-circle-left", function(){
+  $(".far.fa-arrow-alt-circle-left").on("click", function(){
     $(".menu-listed-items").animate( { scrollLeft: '-=460' }, 1000);
   });
 
   //scroll right
-  $(document).on("click", ".far.fa-arrow-alt-circle-right", function(){
+  $(".far.fa-arrow-alt-circle-right").on("click", function(){
     $(".menu-listed-items").animate( { scrollLeft: '+=460' }, 1000);
   })
 

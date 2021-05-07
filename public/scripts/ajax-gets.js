@@ -1,9 +1,11 @@
-const displayMenuItems = function() {$("#menuItemsButton").click(function() {
+const displayMenuItems = function() {
+
+  $("#menuItemsButton").on('click', function() {
   $.ajax({
     url: "/menu",
     method: "GET",
     success: (data) => {
-      let menuItems = data.menuItems;
+      const menuItems = data.menuItems;
       menuItems.forEach(item => {
         $(".menu-listed-items").append(`<div class="menu-item">${item.name}</div>`);
       })
@@ -51,30 +53,29 @@ const startTimer = () =>{
     url: '/orders/timestamp',
     method: 'GET',
     success: (data) => {
-      // const timer = function() {
-        let timeOrdered = Date.parse(data.orders[0].order_time);
-        let orderFinish = Date.parse(data.orders[0].finish_time);
-        let countDown   = orderFinish - timeOrdered;
-        let minutes     = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds     = Math.floor((countDown % (1000 * 60)) / 1000);
+      let timeOrdered = Date.parse(data.orders[0].order_time);
+      let orderFinish = Date.parse(data.orders[0].finish_time);
+      let countDown   = orderFinish - timeOrdered;
+      let minutes     = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds     = Math.floor((countDown % (1000 * 60)) / 1000);
 
-        const intervalID = setInterval(function() {
-          if (seconds <= 0) {
-            minutes --;
-            seconds = 60
-          }
-          seconds--;
-          if (seconds <= 9) {
-            $('#seconds').html(`<span class='timeStyle'>${minutes}:0${seconds}</span>`);
-          } else {
-            $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`);
-          }
+      const intervalID = setInterval(function() {
+        if (seconds <= 0) {
+          minutes --;
+          seconds = 60
+        }
+        seconds--;
+        if (seconds <= 9) {
+          $('#seconds').html(`<span class='timeStyle'>${minutes}:0${seconds}</span>`);
+        } else {
+          $('#seconds').html(`<span class='timeStyle'>${minutes}:${seconds}</span>`);
+        }
 
-          if (minutes === 0 && seconds === 0) {
-            clearInterval(intervalID);
-            $('#time').html(`<div> TIME FOR PICKUP </div>`);
-          }
-        },1000);
+        if (minutes === 0 && seconds === 0) {
+          clearInterval(intervalID);
+          $('#time').html(`<div> TIME FOR PICKUP </div>`);
+        }
+      },1000);
     }
   });
 }
