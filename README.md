@@ -1,6 +1,17 @@
 LHL Node Skeleton
 =========
 
+## About the Project
+
+!["Screenshot of front page"](https://files.slack.com/files-pri/T2G8TE2E5-F020Z9E5AB0/fullscreen.png)
+!["Screenshot of individual menu item"](https://files.slack.com/files-pri/T2G8TE2E5-F020R9K2BQF/singleitem.png)
+!["Screenshot of pickup time"](https://files.slack.com/files-pri/T2G8TE2E5-F020Z9EP03Y/timer.png)
+
+Tayst allows users to go through a seamless menu on a SPA and add items to their cart for purchase. User registration, user information edit and log in features are built in with the ideology of producing a very effecient SPA. Our driving force behind the app was the seamlessness and the intuitive nature of the website. 
+
+Tayst offers users an in built direction module for order pickups, an estimated pickup timer and current promotions. Tayst will confirm your orders via 
+SMS notifications so you can feel reassured that your order(s) went through. 
+
 ## Project Setup
 
 The following steps are only for _one_ of the group members to perform.
@@ -36,8 +47,28 @@ The following steps are only for _one_ of the group members to perform.
   - It runs through each of the files, in order, and executes them against the database. 
   - Note: you will lose all newly created (test) data each time this is run, since the schema files will tend to `DROP` the tables and recreate them.
 
+## Roadmap
+
+- User will be able to chose menu items depending on category.
+- User will be able to search through menu via input in search field.
+- User will be able to add a menu item as a favorite for ease of access.
+- User will be able to specify specific pickup time for food.
+- User will receive notification if specific ingredient is included in a menu item and receive a warning during add-to-cart process for allergens.
+- User payment options will be more flexible.
+- User will be able to see a list of past orders.
+- Admins on website would load a different options such as searchable function to sift through past orders as well as track current orders being processed.
+- Admins will be able to send an SMS notification on demand if orders are compeleted before estimated time.
+
 ## Dependencies
 
-- Node 10.x or above
-- NPM 5.x or above
-- PG 6.x
+  - body-parser": "^1.19.0",
+  - chalk": "^2.4.2",
+  - dotenv": "^2.0.0",
+  - ejs": "^2.6.2",
+  - express": "^4.17.1",
+  - moment-timer": "^1.3.0",
+  - morgan": "^1.9.1",
+  - node-sass-middleware": "^0.11.0",
+  - pg": "^8.5.0",
+  - pg-native": "^3.0.0",
+  - twilio": "^3.61.0"
